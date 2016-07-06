@@ -7,41 +7,48 @@
 
     <script src="./js/jquery.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/util.js"></script>
+
+    <style type="text/css">
+		#page-content{
+			margin: auto;
+			width: 1100px;
+		}
+    </style>
 </head>
 <body>
-<nav class="navbar navbar-default navbar-static-top">
-	<div class="container-fluid">
-		<!-- Brand and toggle get grouped for better mobile display -->
-		<div class="navbar-header">
-		  	<a class="navbar-brand" href="#">请叫我杰哥QAQ</a>
-		</div>
+	<nav class="navbar navbar-default navbar-static-top">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+			  	<a class="navbar-brand" href="#">请叫我杰哥QAQ</a>
+			</div>
 
-		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="#"> 首页 </a></li>
-				<li class="dropdown">
-				  	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-				  		前端 <span class="caret"></span>
-				  	</a>
-				  	<ul class="dropdown-menu">
-				        <li><a href="#">显得很牛逼</a></li>
-				        <li><a href="#">看得出来很牛逼</a></li>
-				        <li role="separator" class="divider"></li>
-				        <li><a href="#">Separated link</a></li>
-				  	</ul>
-				</li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li><p class="navbar-text" id="now-time"></p></li>
-				<li><a href="#"> 关于我 </a></li>
-			</ul>
-		</div><!-- /.navbar-collapse -->
-	</div><!-- /.container-fluid -->
-</nav>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#"> 首页 </a></li>
+					<li class="dropdown">
+					  	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+					  		前端 <span class="caret"></span>
+					  	</a>
+					  	<ul class="dropdown-menu">
+					        <li><a href="#demo">显得很牛逼</a></li>
+					        <li><a href="#demo2">看得出来很牛逼</a></li>
+					        <li role="separator" class="divider"></li>
+					        <li><a href="#">Separated link</a></li>
+					  	</ul>
+					</li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><p class="navbar-text" id="now-time"></p></li>
+					<li><a href="#"> 关于我 </a></li>
+				</ul>
+			</div><!-- /.navbar-collapse -->
+		</div><!-- /.container-fluid -->
+	</nav>
+	<div id="page-content"></div>
 </body>
 <script type="text/javascript" src="./js/timer.js"></script>
-<script type="text/javascript">
-	
-</script>
+<script type="text/javascript" src="./js/navigation.js"></script>
 </html>
