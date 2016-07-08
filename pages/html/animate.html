@@ -337,6 +337,69 @@
 		}
 		@keyframes shine2{0%{left:20px}100%{left:-191.5px}}
 		@-webkit-keyframes shine2{0%{left:20px}100%{left:-191.5px}}
+		/* 指纹 */
+		#animation-7{
+			width: 67.5px;
+		    height: 67.5px;
+		    top: 400px;
+		    left: 50%;
+		    margin-left: -34px;
+		    -webkit-user-select: none;
+		}
+		#animation-7.play {
+			display: block;
+		    -webkit-animation: fadeIn .6s 2s ease-in-out both;
+		}
+		@keyframes fadeIn{0%{opacity:0}100%{opacity:1}}
+		@-webkit-keyframes fadeIn{0%{opacity:0}100%{opacity:1}}
+		#animation-7 .dark{
+			z-index: 1;
+		}
+		#animation-7 .dark img{
+			width: 100%;
+		}
+		#animation-7 .light{
+			opacity: 1;
+		    width: 100%;
+		    height: 15%;
+		    top: 0;
+		    left: 0;
+		    z-index: 2;
+		    overflow: hidden;
+		    -webkit-animation: shine3 1.2s .2s linear infinite;
+		}
+		@keyframes shine3{0%{top:-20px}100%{top:67.5px}}
+		@-webkit-keyframes shine3{0%{top:-20px}100%{top:67.5px}}
+		#animation-7 .light img{
+		    position: absolute;
+		    width: 67.5px;
+		    height: 67.5px;
+		    top: 0;
+		    left: 0;
+	        animation: shine4 1.2s .2s linear infinite;
+	        -webkit-animation: shine4 1.2s .2s linear infinite;
+		}
+		@keyframes shine4{0%{top:20px}100%{top:-67.5px}}
+		@-webkit-keyframes shine4{0%{top:20px}100%{top:-67.5px}}
+		#animation-7 .mask {
+		    width: 100%;
+		    height: 100%;
+		    top: 0;
+		    left: 0;
+		    z-index: 3;
+		}
+		#animation-7 .explan {
+		    width: 320px;
+		    height: 20px;
+		    bottom: -20px;
+		    left: 50%;
+		    margin-left: -160px;
+		    font-size: 14px;
+		    color: #fff;
+		    text-align: center;
+		    line-height: 20px;
+		    text-shadow: 2px 2px 2px rgba(0,0,0,.7);
+		}
 	</style>
 </head>
 <body>
@@ -375,6 +438,13 @@
             <p class="dark pr"><img src="../img/page-txt-1.png" alt="page-txt-1"></p>
             <p class="light pa"><img src="../img/page-txt-2.png" alt="page-txt-2"></p>
         </div>
+        <!-- 指纹 -->
+        <div id="animation-7" class="pa none" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+            <p class="dark pr"><img src="../img/fingerprint-1.png" alt="fingerprint-1"></p>
+            <p class="light pa"><img src="../img/fingerprint-2.png" alt="fingerprint-2"></p>
+            <div class="mask pa"></div>
+            <p class="explan pa">够胆你就按下指纹</p>
+        </div>
 	</div>
 </body>
 <script type="text/javascript">
@@ -393,6 +463,7 @@
 			$(".eye-box").addClass("xlAni1");
 			$("#animation-5").addClass("play");
 			$("#animation-6").addClass("play");
+			$("#animation-7").addClass("play");
 		})
 	}
 	func_1();
