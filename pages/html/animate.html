@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+	<meta name="Copyright" content="" />
+	<!-- 让IE浏览器用最高级内核渲染页面 还有用 Chrome 框架的页面用webkit 内核
+	================================================== -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<!-- IOS6全屏 Chrome高版本全屏
+	================================================== -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes">
+	<!-- 让360双核浏览器用webkit内核渲染页面
+	================================================== -->
+	<meta name="renderer" content="webkit">
+	<!-- Mobile Specific Metas
+	================================================== -->
+	<!-- !!!注意 minimal-ui 是IOS7.1的新属性，最小化浏览器UI -->
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"> -->
+	<meta name="viewport" id="viewport" content="width=320,minimum-scale=0.5,maximum-scale=5,user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<!-- 启用360浏览器的极速模式(webkit) -->
+	<meta name="renderer" content="webkit">
+	<!-- 避免IE使用兼容模式 -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+	<meta name="HandheldFriendly" content="true">
+	<!-- 微软的老式浏览器 -->
+	<meta name="MobileOptimized" content="320">
+	<!-- uc强制竖屏 -->
+	<meta name="screen-orientation" content="portrait">
+	<!-- QQ强制竖屏 -->
+	<meta name="x5-orientation" content="portrait">
+	<!-- UC强制全屏 -->
+	<meta name="full-screen" content="yes">
+	<!-- QQ强制全屏 -->
+	<meta name="x5-fullscreen" content="true">
+	<!-- UC应用模式 -->
+	<meta name="browsermode" content="application">
+	<!-- QQ应用模式 -->
+	<meta name="x5-page-mode" content="app">
+	<!-- windows phone 点击无高光 -->
+	<meta name="msapplication-tap-highlight" content="no">
+
+	<title>蝙蝠侠大战超人</title>
+
+    <script src="../js/jquery.min.js"></script>
+	<style type="text/css">
+		*{margin: 0;padding: 0;}
+		html,body{height: 100%;}
+		body{
+			width: 100%;
+			font-style: 14px;
+		}
+		#animations{
+			width: 320px;
+			height: 100%;
+			background: #000;
+		}
+		.none{
+			display: none;
+		}
+		.animation-box{
+			height: 100%;
+		}
+		.pr{
+			position: relative;
+		}
+		.pa{
+			position: absolute;
+		}
+		/* 落叶 */
+		#animation-1{
+		    width: 320px;
+		    height: 100%;
+		    top: 0;
+		    left: 0;
+		    background: url("../img/xl-3.png") no-repeat;
+		    background-size: 3840px;
+		    z-index: 99;
+		    -webkit-animation: xlAni3 1.2s steps(11) infinite;
+		    pointer-events: none;
+		    opacity: .7;
+		}
+		@keyframes xlAni3{0%{background-position:0 0}100%{background-position:-3520px 0}}
+		@-webkit-keyframes xlAni3{0%{background-position:0 0}100%{background-position:-3520px 0}}
+		/* 加载 */
+		.transform50{
+			top: 50%;
+		    position: absolute;
+		    left: 50%;
+		    transform: translate(-50%,-50%);
+		}
+		.loading-box{
+			width: 213px;
+			height: 114px;
+			margin: auto;
+		}
+		#word{
+			text-align: center;
+			color: #999;
+			font-weight: 600;
+			font-size: 2rem;
+		}
+		#loading-box-1{
+			position: relative;
+			animation: loadAnimate 2s linear infinite normal;
+			-webkit-animation: loadAnimate 2s linear infinite normal;
+			animation-fill-mode : forwards;
+		}
+		@keyframes loadAnimate{
+			0% {
+				background: url("../img/loading-img-1.png");
+				transform: rotateY(90deg);
+			}
+			50% {
+				background: url("../img/loading-img-1.png");
+				transform: rotateY(270deg);
+			}
+			51% {
+				background: url("../img/loading-img-2.png");
+				transform: rotateY(270deg);
+			}
+			100% {
+				background: url("../img/loading-img-2.png");
+				transform: rotateY(450deg);
+			}
+		}
+		@-webkit-keyframes loadAnimate{
+			0% {
+				background: url("../img/loading-img-1.png");
+				-webkit-transform: rotateY(90deg);
+			}
+			50% {
+				background: url("../img/loading-img-1.png");
+				-webkit-transform: rotateY(270deg);
+			}
+			51% {
+				background: url("../img/loading-img-2.png");
+				-webkit-transform: rotateY(270deg);
+			}
+			100% {
+				background: url("../img/loading-img-2.png");
+				-webkit-transform: rotateY(450deg);
+			}
+		}
+		/* 海报残页 */
+		#animation-3{
+			top: 0;
+			left: 0;
+			position: absolute;
+			width: 320px;
+		}
+		#animation-3 .bg{
+			height: 100%;
+			background: url("../img/bg1.jpg") no-repeat;
+			background-size: 100%;
+		}
+		#animation-3 .eye-box{
+			position: absolute;
+			width: 320px;
+		    height: 217.5px;
+		    top: 158px;
+		    left: 0;
+		    background: url("../img/xl-1.jpg") no-repeat;
+		    background-size: 4480px;
+		    z-index: 1;
+		}
+		#animation-3 .eye-fly-box{
+			position: absolute;
+			width: 125px;
+		    height: 127.5px;
+		    top: 158px;
+		    right: 0;
+		    z-index: 2;
+		}
+		#animation-3 .eye-fly{
+			position: absolute;
+		    width: 127px;
+		    height: 127.5px;
+		    top: 0;
+		    right: 0;
+		    background: url("../img/xl-2.jpg") no-repeat;
+		    background-size: 3302px;
+		}
+		#flyAnimate{
+			animation: flyAnimate 2.2s steps(25) infinite;
+			-webkit-animation: flyAnimate 2.2s steps(25) infinite;
+			animation-fill-mode : forwards;
+		}
+		@keyframes flyAnimate{
+			0%{
+				background-position:0 0;
+			}
+			100%{
+				background-position:-3175px 0;
+			}
+		}
+		@-webkit-keyframes flyAnimate{
+			0%{
+				background-position:0 0;
+			}
+			100%{
+				background-position:-3175px 0;
+			}
+		}
+		.xlAni1{
+			animation: xlAni1 .4s steps(13) both;
+			-webkit-animation: xlAni1 .4s steps(13) both;
+		}
+		@keyframes xlAni1{0%{background-position:0 0}100%{background-position:-4160px 0}}
+		@-webkit-keyframes xlAni1{0%{background-position:0 0}100%{background-position:-4160px 0}}
+		/* 圆点 */
+		#animation-4{
+		    width: 60px;
+		    height: 60px;
+		    top: 152px;
+		    right: 0;
+		    z-index: 4;
+		}
+		#animation-4 p{
+			width: 25px;
+		    height: 25px;
+		    top: 20px;
+		    right: 20px;
+		    border: 1px solid #fff;
+		    border-radius: 50%;
+		    opacity: .5;
+	        animation: pulse .8s ease-in-out alternate infinite;
+	        -webkit-animation: pulse .8s ease-in-out alternate infinite;
+		}
+		@keyframes pulse{0%{transform:scale(1)}100%{transform:scale(1.2)}}
+		@-webkit-keyframes pulse{0%{-webkit-transform:scale(1)}100%{-webkit-transform:scale(1.2)}}
+		#animation-4 span{
+		    width: 18px;
+		    height: 18px;
+		    top: 50%;
+		    left: 50%;
+		    margin: -9px 0 0 -9px;
+		    background: #fff;
+		    border-radius: 50%;
+		}
+		.tip-txt {
+		    width: 100%;
+		    top: 180px;
+		    left: 0;
+		    font-size: 10px;
+		    color: #fff;
+		    text-align: center;
+		    line-height: 10px;
+		    text-shadow: 0 3px 2px rgba(0,0,0,.7);
+		    z-index: 3;
+		}
+		.tip-txt span {
+		    display: block;
+		    position: absolute;
+		    top: 1px;
+		    width: 0;
+		    height: 0;
+		    border-top: 4px solid transparent;
+		    border-left: 6px solid #fff;
+		    border-bottom: 4px solid transparent;
+		    box-shadow: 0 5px 2px rgba(0,0,0,.7);
+		}
+		.tip-txt span:nth-child(1) {
+		    left: 223px;
+		}
+		.tip-txt span:nth-child(2) {
+		    left: 231px;
+		}
+		.tip-txt span:nth-child(3) {
+		    left: 239px;
+		}
+		/* logo */
+		#animation-5{
+		    width: 116.5px;
+		    height: 61px;
+		    top: 87px;
+		    left: 50%;
+		    margin-left: -58px;
+		    background: url("../img/logo.png") no-repeat;
+		    background-size: 100%;
+		    z-index: 11;
+		    opacity: 0;
+		}
+		#animation-5.play{
+		    animation: fadeInBig .5s .7s ease both;
+		    -webkit-animation: fadeInBig .5s .7s ease both;
+		}
+		@keyframes fadeInBig{0%{opacity:0;transform:translateY(200px) scale(10)}100%{opacity:1;transform:translateY(0) scale(1)}}
+		@-webkit-keyframes fadeInBig{0%{opacity:0;-webkit-transform:translateY(200px) scale(10)}100%{opacity:1;-webkit-transform:translateY(0) scale(1)}}
+		/* 文字 */
+		#animation-6 {
+		    width: 191.5px;
+		    height: 75.5px;
+		    top: 313px;
+		    left: 50%;
+		    margin-left: -93.5px;
+		    z-index: 2;
+		    opacity: 0;
+		}
+		#animation-6.play {
+		    animation: fadeInBig .5s .6s ease both;
+		    -webkit-animation: fadeInBig .5s .6s ease both;
+		}
+		#animation-6 .dark{
+		    z-index: 1;
+		}
+		#animation-6 .dark img {
+			width: 100%;
+		}
+		#animation-6 .light{
+		    opacity: 1;
+		    width: 10%;
+		    height: 100%;
+		    top: 0;
+		    left: 0;
+		    z-index: 2;
+		    overflow: hidden;
+		}
+		#animation-6.play .light {
+		    animation: shine1 .6s 1.4s linear both;
+		    -webkit-animation: shine1 .6s 1.4s linear both;
+		}
+		@keyframes shine1{0%{left:-20px}100%{left:191.5px}}
+		@-webkit-keyframes shine1{0%{left:-20px}100%{left:191.5px}}
+		#animation-6 .light img {
+		    position: absolute;
+		    width: 191.5px;
+		    height: 75.5px;
+		    top: 0;
+		    left: 0;
+		}
+		#animation-6.play .light img {
+		    animation: shine2 .6s 1.4s linear both;
+		    -webkit-animation: shine2 .6s 1.4s linear both;
+		}
+		@keyframes shine2{0%{left:20px}100%{left:-191.5px}}
+		@-webkit-keyframes shine2{0%{left:20px}100%{left:-191.5px}}
+	</style>
+</head>
+<body>
+	<div id="animations">
+		<!-- 落叶 -->
+		<div id="animation-1" class="none animation-box pa"></div>
+		<!-- 加载 -->
+		<div id="animation-2" class="animation-box">
+			<div class="transform50">
+				<div class="loading-box" id="loading-box-1"></div>
+				<div id="word">大战一触即发</div>
+			</div>
+		</div>
+		<!-- 海报残页 -->
+		<div id="animation-3" class="none animation-box pa">
+			<div class="bg">
+				<div class="eye-box"></div>
+				<div class="eye-fly-box">
+					<div class="eye-fly" id="flyAnimate"></div>
+				</div>
+			</div>
+		</div>
+		<!-- 圆点 -->
+		<div id="animation-4" class="none pa">
+        	<p class="pa"><span class="ht pa"></span></p>
+        </div>
+        <!-- 文字 -->
+        <p class="tip-txt pa none">
+        	终极对决由此拉开序幕
+        	<span></span><span></span><span></span>
+    	</p>
+    	<!-- logo -->
+    	<div id="animation-5" class="pa"></div>
+    	<!-- 文字 -->
+    	<div id="animation-6" class="pa">
+            <p class="dark pr"><img src="../img/page-txt-1.png" alt="page-txt-1"></p>
+            <p class="light pa"><img src="../img/page-txt-2.png" alt="page-txt-2"></p>
+        </div>
+	</div>
+</body>
+<script type="text/javascript">
+	setTimeout(function(){
+		$("#animation-2").addClass("none");
+		$("#animation-1").removeClass("none");
+		$("#animation-3").removeClass("none");
+		$("#animation-4").removeClass("none");
+		$(".tip-txt").removeClass("none");
+	}, 2000);
+	function func_1(){
+		$("#animation-4").on("click", function(){
+			$(".tip-txt").addClass("none");
+			$(".eye-fly-box").addClass("none");
+			$("#animation-4").addClass("none");
+			$(".eye-box").addClass("xlAni1");
+			$("#animation-5").addClass("play");
+			$("#animation-6").addClass("play");
+		})
+	}
+	func_1();
+</script>
+</html>
