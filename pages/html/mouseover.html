@@ -92,6 +92,7 @@
             margin-top: -1px;
             opacity: 0;
             margin-left: 102%;
+            display: none;
             transition: opacity .3s, transform .3s;
         }
         #text-content:after{
@@ -108,8 +109,10 @@
             border-radius: 5px;
             padding: 10px;
             white-space: normal;
+            display: none;
         }
         #text-content:hover:after, #text-content:hover:before{
+            display: block;
             opacity: 1;
         }
     </style>
