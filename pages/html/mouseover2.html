@@ -132,7 +132,17 @@
     </div>
 
     <script type="text/javascript">
-        
+        var c = document.getElementsByClassName("text-box")[0];
+        c.addEventListener("mouseover", mouseoverFn, false);
+        function mouseoverFn(e){
+            var winWidth     = document.body.clientWidth;
+            var divLeftWidth = document.getElementsByClassName("text-box")[0].offsetLeft;
+            if(winWidth/2 < divLeftWidth){
+                var copyContent = document.getElementsByClassName("copy-content")[0];
+                copyContent.style.left="-100%";
+                document.styleSheets[0].addRule(".copy-content::before", "display:none;")
+            }
+        }
     </script>
 </body>
 </html>
