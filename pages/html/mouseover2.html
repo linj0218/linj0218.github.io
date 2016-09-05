@@ -129,16 +129,30 @@
                 1、凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字。
             </div>
         </div>
+        <div class="text-box">
+            <p class="content">3、凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字。</p>
+            <div class="copy-content">
+                3、凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字。
+            </div>
+        </div>
+        <div class="text-box">
+            <p class="content">2、凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字。</p>
+            <div class="copy-content">
+                2、凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字。
+            </div>
+        </div>
     </div>
 
     <script type="text/javascript">
-        var c = document.getElementsByClassName("text-box")[0];
-        c.addEventListener("mouseover", mouseoverFn, false);
+        var c = document.getElementsByClassName("text-box");
+        for(var i=0; i<c.length; i++){
+            c[i].addEventListener("mouseover", mouseoverFn, false);
+        }
         function mouseoverFn(e){
             var winWidth     = document.body.clientWidth;
-            var divLeftWidth = document.getElementsByClassName("text-box")[0].offsetLeft;
+            var divLeftWidth = this.offsetLeft;
             if(winWidth/2 < divLeftWidth){
-                var copyContent = document.getElementsByClassName("copy-content")[0];
+                var copyContent = this.getElementsByClassName("copy-content")[0];
                 copyContent.style.left="-100%";
                 document.styleSheets[0].addRule(".copy-content::before", "display:none;")
             }
