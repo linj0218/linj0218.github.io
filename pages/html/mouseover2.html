@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Copyright" content="" />
+    <!-- 让IE浏览器用最高级内核渲染页面 还有用 Chrome 框架的页面用webkit 内核
+    ================================================== -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- IOS6全屏 Chrome高版本全屏
+    ================================================== -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- 让360双核浏览器用webkit内核渲染页面
+    ================================================== -->
+    <meta name="renderer" content="webkit">
+    <!-- Mobile Specific Metas
+    ================================================== -->
+    <!-- !!!注意 minimal-ui 是IOS7.1的新属性，最小化浏览器UI -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="format-detection" content="telephone=no">
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <title>鸡狗子鼠标悬停title样式demo</title>
+
+    <style type="text/css">
+        html,body{
+            font-family: "Microsoft YaHei";
+            font-size: 14px;
+            height: 100%;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .body{
+            padding: 20px;
+        }
+        .text-box{
+            float: left;
+            width: 33%;
+            box-sizing: border-box;
+            position: relative;
+        }
+        .text-box:after{
+            content: ".";
+            display: block;
+            height: 0;
+            visibility: hidden;
+            clear: both;
+        }
+        .content{
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            background: #eee;
+            border-radius: 5px;
+        }
+        .text-box:not(:last-child){
+            /*border-right: 1px solid #ccc;*/
+        }
+        .copy-content{
+            display: none;
+            position: absolute;
+            left: 0;
+            width: 100%;
+            background: #eee;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            top: 0;
+            z-index: 2;
+        }
+        .text-box:hover .copy-content{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="body">
+        <h4 style="margin-bottom: 15px;">把鼠标放到下面方框内</h4>
+        <div class="text-box">
+            <p class="content">1、凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字。</p>
+            <div class="copy-content">
+                1、凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字。
+            </div>
+        </div>
+        <div class="text-box">
+            <p class="content">2、凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字。</p>
+            <div class="copy-content">
+                2、凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字。
+            </div>
+        </div>
+        <div class="text-box">
+            <p class="content">3、凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字。</p>
+            <div class="copy-content">
+                3、凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字，凑够250个字。
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        
+    </script>
+</body>
+</html>
