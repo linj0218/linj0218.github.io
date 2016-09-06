@@ -21,9 +21,6 @@
         border-radius: 3px;
         height: 3rem;
     }
-    .dw-cal-anim{
-        /*width: 100% !important;*/
-    }
 </style>
 </head>
 <body>
@@ -47,54 +44,74 @@
                 <li>“本周值日”显示本周的值日</li>
                 <li>“查看日期”选择想要查看的日期</li>
                 <li>“当周值日”显示选择日期的值日</li>
+                <li>
+                    算法：
+                    <ol>
+                        <li>当前日期或选中日期在今年中是第n周</li>
+                        <li>求出n对4求余数x</li>
+                        <li>
+                            <ul>
+                                <li>x:0=>苏发旺</li>
+                                <li>x:1=>林杰</li>
+                                <li>x:2=>周斌斌</li>
+                                <li>x:3=>王金文</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </li>
             </ul>
         </div>
     </div>
     <script type="text/javascript">
-        $('#demo').mobiscroll().calendar({
-            theme: 'mobiscroll',
-            lang: 'zh',
-            display: 'bottom',
-            layout: 'liquid',
-            dateFormat: 'yy-mm-dd',
-            weekCounter: 'year',
-            onSelect: function (valueText, inst) {
-                console.log(valueText)
-                console.log(inst)
-                var a = valueText.split("-");
-                // var a1 = new Date(a[0], a[1], a[2]).getYear();
-                console.log(a);
-                console.log( "今天是",a[1],"月的第 ", getMonthWeek(a[0], a[1], a[2]), " 周" );
+        var men = ["苏发旺", "林杰", "周斌斌", "王金文"];
+        
+        var mobj = function(){}
+        mobj.prototype = {
+            init : function(){
+                this.initCalendar();
+            },
+            initCalendar : function(){
+                var self = this;
+                $('#demo').mobiscroll().calendar({
+                    theme: 'mobiscroll',
+                    lang: 'zh',
+                    display: 'bottom',
+                    layout: 'liquid',
+                    dateFormat: 'yy-mm-dd',
+                    onSelect: function (valueText, inst) {
+                        self.setThatWeek(valueText);
+                    }
+                });
+                this.setThisWeek();
+            },
+            getDayInYear : function(t){
+                var now = new Date();
+                if(t){
+                    now = new Date(t);
+                }
+                var firstDay = new Date(now.getFullYear(),0,1); 
+                //计算当前时间与本年第一天的时差(返回一串数值，代表两个日期相差的毫秒数)
+                var dateDiff = now - firstDay; 
+                //一天的毫秒数
+                var msPerDay = 1000 * 60 * 60 * 24; 
+                //计算天数
+                var diffDays = Math.ceil(dateDiff/ msPerDay);
+                return diffDays;
+            },
+            setThisWeek : function(){
+                var totalNum = this.getDayInYear();
+                var weeks = Math.ceil(totalNum/7);
+                var wn = weeks % 4;
+                document.getElementById("name").value = men[wn];
+            },
+            setThatWeek : function(t){
+                var totalNum = this.getDayInYear(t);
+                var weeks = Math.ceil(totalNum/7);
+                var wn = weeks % 4;
+                document.getElementById("demo-name").value = men[wn];
             }
-        });
-        // $('#demo').mobiscroll('show');
-
-        /* 
-            a = d = 当前日期 
-            b = 6 - w = 当前周的还有几天过完(不算今天) 
-            a + b 的和在除以7 就是当天是当前月份的第几周 
-        */
-        var getMonthWeek = function (a, b, c) { 
-            var date = new Date(a, parseInt(b) - 1, c), w = date.getDay(), d = date.getDate(); 
-            return Math.ceil( (d + 6 - w) / 7 ); 
-        };
-        /* 
-            date1是当前日期 
-            date2是当年第一天 
-            d是当前日期是今年第多少天 
-            用d + 当前年的第一天的周差距的和在除以7就是本年第几周 
-        */
-        var getYearWeek = function (a, b, c) { 
-            var date1 = new Date(a, parseInt(b) - 1, c), date2 = new Date(a, 0, 1), 
-            d = Math.round((date1.valueOf() - date2.valueOf()) / 86400000); 
-            return Math.ceil( (d + ((date2.getDay() + 1) - 1)) / 7 ); 
-        }; 
-
-        today=new Date();//获取当前时间
-        var y = today.getYear();
-        var m = today.getMonth()+1;
-        var d = today.getDate();
-        // document.write( "今天是",m,"月的第 ", getYearWeek(y, m, d), " 周" );
+        }
+        new mobj().init();
     </script>
 </body>
 </html>
