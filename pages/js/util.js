@@ -31,3 +31,27 @@ var browser={
     }(),
     language:(navigator.browserLanguage || navigator.language).toLowerCase()
 };
+
+/* 
+    微信图片浏览
+    curSrc: 当前图片url
+    srcList: 图片list
+ */
+function imagePreview(curSrc,srcList) {
+    if(!curSrc || !srcList || srcList.length == 0) {
+        return;
+    }
+    WeixinJSBridge.invoke('imagePreview', {
+        'current' : curSrc,
+        'urls' : srcList
+    });
+}
+/*是否微信浏览器*/
+function isWeixnBrower(){
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.match(/MicroMessenger/i)=="micromessenger") {
+        return true;
+    } else {
+        return false;
+    }
+}
