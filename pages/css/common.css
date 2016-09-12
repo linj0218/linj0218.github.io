@@ -1,0 +1,85 @@
+
+/*公用*/
+body,div,table,tr,td,ul,li,p,h1,h2,h3,h4,img,p,form,input,select
+	{
+	margin:0;
+	padding:0;
+	font-size:14px;
+	font-family: "微软雅黑";
+	font-weight: 100;
+	}
+
+img
+	{
+	border:none;
+	}
+ul{
+	list-style: none;
+}
+
+a{
+text-decoration:none;
+}
+
+a:link{
+text-decoration:none;
+}
+a:visited{
+text-decoration:none;
+}
+a:hover{
+text-decoration:none;
+}
+a:active{
+text-decoration:none;
+}
+
+
+*:focus {outline: none;}
+
+.clearFix:after
+	{
+	clear:both;
+	display:block;
+	visibility:hidden;
+	height:0;
+	line-height:0;
+	content:"";
+	}
+	
+/*字体加粗*/
+.font_bold{
+	font-weight: bold;
+}
+/*不显示 */
+.disnone{
+	display: none;
+}
+
+/*height为% 时 span 居中*/
+.span_middle{ 
+	height:100%;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+/*flex*/
+.flex_ul{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	
+
+	-webkit-flex-flow:row wrap;
+	-ms-flex-flow:row wrap;
+	flex-flow:row wrap;
+	
+
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+}
+
+
