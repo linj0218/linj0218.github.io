@@ -193,16 +193,30 @@
         var mobj = function(){};
         mobj.prototype = {
             init : function(){
-
+                this.events();
             },
             getImgList : function(){
                 var list = [];
                 var ibl = document.getElementsByClassName("img-box");
-                for(var i=0; i<ibl.length; i++){
-                    
+                for(var i=0; i<ibl.length-1; i++){
+                    var s = ibl[i].getElementsByTagName("img")[0].src;
+                    list.push(s);
                 }
+                return list;
+            },
+            events : function(){
+                var imgUrls = this.getImgList();
+                var bc = document.getElementsByClassName("body-cont")[0];
+                bc.addEventListener("click", function(e){
+                    var event = e || window.event;
+                    var target = event.target || event.srcElement;
+                    if(target.tagName.toLowerCase = "img"){
+                        imagePreview(target.src, imgUrls);
+                    }
+                }, false);
             }
         }
+        new mobj().init();
     </script>
 </body>
 </html>
