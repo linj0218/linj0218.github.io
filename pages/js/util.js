@@ -47,7 +47,7 @@ function imagePreview(curSrc,srcList) {
     });
 }
 /*是否微信浏览器*/
-function isWeixnBrower(){
+function isWechatBrower(){
     var ua = navigator.userAgent.toLowerCase();
     if(ua.match(/MicroMessenger/i)=="micromessenger") {
         return true;
