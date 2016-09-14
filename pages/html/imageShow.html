@@ -51,6 +51,8 @@
     <script type="text/javascript" src="../js/jquery-1.11.0.min.js"></script>
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <!-- 加载lazyload.js -->
+    <script type="text/javascript" src="../js/jquery.lazyload.js"></script>
     <!-- 引入swiper插件js -->
     <!-- <script type="text/javascript" src="../js/swiper-3.3.1.jquery.min.js"></script> -->
     <script type="text/javascript" src="../js/util.js"></script>
@@ -197,14 +199,14 @@
         </div>
         <div class="body-cont">
             <div>
-                <div class="col-xs-4 col-sm-4 col-md-4 img-box"><div><div><img src="../img/xc-c1.jpg"></div></div></div>
-                <div class="col-xs-4 col-sm-4 col-md-4 img-box"><div><div><img src="../img/xc-c2.jpg"></div></div></div>
-                <div class="col-xs-4 col-sm-4 col-md-4 img-box"><div><div><img src="../img/xc-c3.jpg"></div></div></div>
-                <div class="col-xs-4 col-sm-4 col-md-4 img-box"><div><div><img src="../img/xc-c4.jpg"></div></div></div>
-                <div class="col-xs-4 col-sm-4 col-md-4 img-box"><div><div><img src="../img/xc-c5.jpg"></div></div></div>
-                <div class="col-xs-4 col-sm-4 col-md-4 img-box"><div><div><img src="../img/xc-c6.jpg"></div></div></div>
-                <div class="col-xs-4 col-sm-4 col-md-4 img-box"><div><div><img src="../img/xc-c7.jpg"></div></div></div>
-                <div class="col-xs-4 col-sm-4 col-md-4 img-box"><div><div><img src="../img/xc-c8.jpg"></div></div></div>
+                <div class="col-xs-4 col-sm-4 col-md-4 img-box"><div><div><img class="lazy" data-original="../img/xc-c1.jpg"></div></div></div>
+                <div class="col-xs-4 col-sm-4 col-md-4 img-box"><div><div><img class="lazy" data-original="../img/xc-c2.jpg"></div></div></div>
+                <div class="col-xs-4 col-sm-4 col-md-4 img-box"><div><div><img class="lazy" data-original="../img/xc-c3.jpg"></div></div></div>
+                <div class="col-xs-4 col-sm-4 col-md-4 img-box"><div><div><img class="lazy" data-original="../img/xc-c4.jpg"></div></div></div>
+                <div class="col-xs-4 col-sm-4 col-md-4 img-box"><div><div><img class="lazy" data-original="../img/xc-c5.jpg"></div></div></div>
+                <div class="col-xs-4 col-sm-4 col-md-4 img-box"><div><div><img class="lazy" data-original="../img/xc-c6.jpg"></div></div></div>
+                <div class="col-xs-4 col-sm-4 col-md-4 img-box"><div><div><img class="lazy" data-original="../img/xc-c7.jpg"></div></div></div>
+                <div class="col-xs-4 col-sm-4 col-md-4 img-box"><div><div><img class="lazy" data-original="../img/xc-c8.jpg"></div></div></div>
                 <div class="col-xs-4 col-sm-4 col-md-4 img-box"><div><div><div class="see-more"><span>查看全部</span><span>(73)</span></div></div></div></div>
             </div>
         </div>
@@ -217,13 +219,14 @@
         var mobj = function(){};
         mobj.prototype = {
             init : function(){
+                $("img.lazy").lazyload({effect: "fadeIn"});
                 this.events();
             },
             getImgList : function(){
                 var list = [];
                 var ibl = document.getElementsByClassName("img-box");
                 for(var i=0; i<ibl.length-1; i++){
-                    var s = ibl[i].getElementsByTagName("img")[0].src;
+                    var s = ibl[i].getElementsByTagName("img")[0].dataset.original;
                     list.push(s);
                 }
                 return list;
@@ -239,28 +242,33 @@
                             imagePreview(target.src, imgUrls);
                         }else {
                             /* 加载swiper css文件 */
-                            var l = document.createElement('link');  
-                            l.rel = 'stylesheet';  
-                            l.href = '../css/swiper-3.3.1.min.css';  
-                            /* 加载swiper js文件 */
-                            var s = document.createElement('script');  
-                            s.type = 'text/javascript';  
-                            s.src = '../js/swiper-3.3.1.jquery.min.js';  
-                            var x = document.getElementsByTagName('script')[0];  
-                            x.parentNode.insertBefore(l, x);
-                            x.parentNode.insertBefore(s, x); 
-                            if (!/*@cc_on!@*/0) { //if not IE
-                                //Firefox2、Firefox3、Safari3.1+、Opera9.6+ support js.onload
-                                s.onload = function () {
-                                    _initSwiper();
-                                }
-                            } else {
-                                //IE6、IE7 support js.onreadystatechange
-                                s.onreadystatechange = function () {
-                                    if (s.readyState == 'loaded' || s.readyState == 'complete') {
+                            if(!document.getElementById("swiper-id")){
+                                var l = document.createElement('link');
+                                l.rel = 'stylesheet';  
+                                l.href = '../css/swiper-3.3.1.min.css';  
+                                /* 加载swiper js文件 */
+                                var s = document.createElement('script');  
+                                s.id = 'swiper-id';
+                                s.type = 'text/javascript';  
+                                s.src = '../js/swiper-3.3.1.jquery.min.js';  
+                                var x = document.getElementsByTagName('script')[0];  
+                                x.parentNode.insertBefore(l, x);
+                                x.parentNode.insertBefore(s, x); 
+                                if (!/*@cc_on!@*/0) { //if not IE
+                                    //Firefox2、Firefox3、Safari3.1+、Opera9.6+ support js.onload
+                                    s.onload = function () {
                                         _initSwiper();
                                     }
+                                } else {
+                                    //IE6、IE7 support js.onreadystatechange
+                                    s.onreadystatechange = function () {
+                                        if (s.readyState == 'loaded' || s.readyState == 'complete') {
+                                            _initSwiper();
+                                        }
+                                    }
                                 }
+                            }else {
+                                _initSwiper();
                             }
                             function _initSwiper(){
                                 var h = '';
