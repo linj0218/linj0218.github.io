@@ -235,6 +235,7 @@
                 var imgUrls = this.getImgList();
                 var bc = document.getElementsByClassName("body-cont")[0];
                 bc.addEventListener("click", function(e){
+                    e.preventDefault();
                     var event = e || window.event;
                     var target = event.target || event.srcElement;
                     if(target.tagName.toLowerCase() == "img"){
