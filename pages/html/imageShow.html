@@ -278,7 +278,7 @@
                                 h += '      <div class="swiper-wrapper">';
 
                                 for(var i=0; i<imgUrls.length; i++){
-                                    if(target.src == imgUrls[i]){
+                                    if(target.dataset.original == imgUrls[i]){
                                         imgIndex = i;
                                     }
                                     h += '      <div class="swiper-slide">';
