@@ -239,7 +239,7 @@
                     var target = event.target || event.srcElement;
                     if(target.tagName.toLowerCase() == "img"){
                         if(isWechatBrower()){
-                            imagePreview(target.src, imgUrls);
+                            imagePreview(target.dataset.original, imgUrls);
                         }else {
                             /* 加载swiper css文件 */
                             if(!document.getElementById("swiper-id")){
