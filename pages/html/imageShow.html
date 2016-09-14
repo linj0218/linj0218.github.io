@@ -46,13 +46,13 @@
    <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <!-- 引入swiper插件css -->
-    <link rel="stylesheet" href="../css/swiper-3.3.1.min.css">
+    <!-- <link rel="stylesheet" href="../css/swiper-3.3.1.min.css"> -->
     <!-- 新版jquery -->
     <script type="text/javascript" src="../js/jquery-1.11.0.min.js"></script>
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script type="text/javascript" src="../js/bootstrap.min.js"></script>
     <!-- 引入swiper插件js -->
-    <script type="text/javascript" src="../js/swiper-3.3.1.jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="../js/swiper-3.3.1.jquery.min.js"></script> -->
     <script type="text/javascript" src="../js/util.js"></script>
     <style>
         *{margin: 0;padding:0;}
@@ -238,40 +238,66 @@
                         if(isWechatBrower()){
                             imagePreview(target.src, imgUrls);
                         }else {
-                            var h = '';
-                            var imgIndex = 0;
-                            h += '<div id="body-pop">';
-                            h += '  <div class="swiper-container">';
-                            h += '      <div class="swiper-wrapper">';
-
-                            for(var i=0; i<imgUrls.length; i++){
-                                if(target.src == imgUrls[i]){
-                                    imgIndex = i;
+                            /* 加载swiper css文件 */
+                            var l = document.createElement('link');  
+                            l.rel = 'stylesheet';  
+                            l.href = '../css/swiper-3.3.1.min.css';  
+                            /* 加载swiper js文件 */
+                            var s = document.createElement('script');  
+                            s.type = 'text/javascript';  
+                            s.src = '../js/swiper-3.3.1.jquery.min.js';  
+                            var x = document.getElementsByTagName('script')[0];  
+                            x.parentNode.insertBefore(l, x);
+                            x.parentNode.insertBefore(s, x); 
+                            if (!/*@cc_on!@*/0) { //if not IE
+                                //Firefox2、Firefox3、Safari3.1+、Opera9.6+ support js.onload
+                                s.onload = function () {
+                                    _initSwiper();
                                 }
-                                h += '      <div class="swiper-slide">';
-                                h += '          <img src="' + imgUrls[i] + '">';
-                                h += '      </div>';
+                            } else {
+                                //IE6、IE7 support js.onreadystatechange
+                                s.onreadystatechange = function () {
+                                    if (s.readyState == 'loaded' || s.readyState == 'complete') {
+                                        _initSwiper();
+                                    }
+                                }
                             }
+                            function _initSwiper(){
+                                var h = '';
+                                var imgIndex = 0;
+                                h += '<div id="body-pop">';
+                                h += '  <div class="swiper-container">';
+                                h += '      <div class="swiper-wrapper">';
 
-                            h += '      </div>';
-                            h += '      <div class="swiper-pagination"></div>';
-                            h += '  </div>';
-                            h += '</div>';
-                            $(".body").append(h);
-                            var swiper = new Swiper('.swiper-container',{
-                                initialSlide : imgIndex,        //初始位置
-                                direction : 'horizontal',   //水平：horizontal，垂直：vertical
-                                autoplay : 0,        //自动播放
-                                speed:300,              //滑动速度
-                                effect : 'slide',       //"slide"（位移切换）"fade"（淡入）"cube"（方块）"coverflow"（3d流）
-                                pagination : '.swiper-pagination',  //分页器
-                                loop : true,            //循环切换
-                            })
-                            /* 关闭 */
-                            var bodyPop = document.getElementById("body-pop");
-                            if(bodyPop){
-                                bodyPop.onclick = function(){
-                                    this.parentElement.removeChild(this);
+                                for(var i=0; i<imgUrls.length; i++){
+                                    if(target.src == imgUrls[i]){
+                                        imgIndex = i;
+                                    }
+                                    h += '      <div class="swiper-slide">';
+                                    h += '          <img src="' + imgUrls[i] + '">';
+                                    h += '      </div>';
+                                }
+
+                                h += '      </div>';
+                                h += '      <div class="swiper-pagination"></div>';
+                                h += '  </div>';
+                                h += '</div>';
+                                $(".body").append(h);
+                                var swiper = new Swiper('.swiper-container',{
+                                    initialSlide : imgIndex,        //初始位置
+                                    direction : 'horizontal',   //水平：horizontal，垂直：vertical
+                                    autoplay : 0,        //自动播放
+                                    speed:300,              //滑动速度
+                                    effect : 'slide',       //"slide"（位移切换）"fade"（淡入）"cube"（方块）"coverflow"（3d流）
+                                    pagination : '.swiper-pagination',  //分页器
+                                    loop : true,            //循环切换
+                                })
+                                /* 关闭 */
+                                var bodyPop = document.getElementById("body-pop");
+                                if(bodyPop){
+                                    bodyPop.onclick = function(){
+                                        this.parentElement.removeChild(this);
+                                    }
                                 }
                             }
                         }
