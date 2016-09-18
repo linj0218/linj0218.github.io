@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Copyright" content="" />
+    <!-- 让IE浏览器用最高级内核渲染页面 还有用 Chrome 框架的页面用webkit 内核
+    ================================================== -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- IOS6全屏 Chrome高版本全屏
+    ================================================== -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- 让360双核浏览器用webkit内核渲染页面
+    ================================================== -->
+    <meta name="renderer" content="webkit">
+    <!-- Mobile Specific Metas
+    ================================================== -->
+    <!-- !!!注意 minimal-ui 是IOS7.1的新属性，最小化浏览器UI -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="format-detection" content="telephone=no">
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <title>相册上传demo</title>
+
+   <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <!-- 新版jquery -->
+    <script type="text/javascript" src="../js/jquery-1.11.0.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://cdn.staticfile.org/Plupload/2.1.1/moxie.js"></script>
+    <script type="text/javascript" src="http://cdn.staticfile.org/Plupload/2.1.1/plupload.dev.js"></script>
+    <script type="text/javascript" src="http://cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.js"></script>
+    <!-- 加载lazyload.js -->
+    <script type="text/javascript" src="../js/jquery.lazyload.js"></script>
+    <script type="text/javascript" src="../js/util.js"></script>
+    <style>
+        *{margin: 0;padding:0;}
+        body{
+            font-size: 14px;
+        }
+        .body{
+            padding-top: 15px;
+        }
+        ul, li{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .activity-list a{
+            display: inline-block;
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            color: inherit;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+        }
+        .activity-list a:hover{
+            background: #ddd;
+            color: #fff;
+        }
+        #move-img{
+            display: inline-block;
+            width: 460px;
+            border: 1px dashed #000;
+            color: #aaa;
+            text-align: center;
+            border-radius: 10px;
+            height: 80px;
+            line-height: 80px;
+            margin-bottom: 15px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="body container-fluid">
+        <div class="activity-list col-xs-12 col-sm-12 col-md-2">
+            <ul>
+                <li><a href="javascript:void(0);">活动一</a></li>
+                <li><a href="javascript:void(0);">活动二</a></li>
+                <li><a href="javascript:void(0);">活动三</a></li>
+                <li><a href="javascript:void(0);">活动四</a></li>
+                <li><a href="javascript:void(0);">活动五</a></li>
+            </ul>
+        </div>
+        <div id="container" class="col-xs-12 col-sm-12 col-md-10">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <a id="move-img" href="javascript:void(0);">移动图片到这里</a>
+            </div>
+            <a class="btn btn-default btn-md " id="pickfiles" style="width:160px" href="#" >
+                <i class="glyphicon glyphicon-plus"></i>
+                <span>选择文件</span>
+            </a>
+
+            <a class="btn btn-default btn-md " id="up_load" style="width:160px" href="#" >
+                <span>确认上传</span>
+            </a>  
+
+            <a class="btn btn-default btn-md " id="stop_load" style="width:160px" href="#" >
+                <span>暂停上传</span>
+            </a> 
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-10">
+            <ul id="read-upload"></ul>
+        </div>
+        <div class="img-list col-xs-12 col-sm-12 col-md-10">
+
+            <!-- http://o9m9wx1i2.bkt.clouddn.com/o_1asu8ie1bk08c1m5i07a0nd4b.png -->
+            <!-- http://o9m9wx1i2.bkt.clouddn.com/o_1asu8i8371qmd1v6q1rueqqc14u99.png -->
+        </div>
+    </div>
+    <script type="text/javascript">
+        var mobj = function(){};
+        mobj.prototype = {
+            init : function(){
+                this.initQiniu();
+            },
+            initQiniu : function(){
+                var uploader = Qiniu.uploader({
+                    runtimes: 'html5,flash,html4',      // 上传模式，依次退化
+                    browse_button: 'pickfiles',         // 上传选择的点选按钮，必需
+                    // 在初始化时，uptoken，uptoken_url，uptoken_func三个参数中必须有一个被设置
+                    // 切如果提供了多个，其优先级为uptoken > uptoken_url > uptoken_func
+                    // 其中uptoken是直接提供上传凭证，uptoken_url是提供了获取上传凭证的地址，如果需要定制获取uptoken的过程则可以设置uptoken_func
+                    uptoken : 'SE9X_BxxLLKGIQ9O5vX6RXhSdV7gcUf69poVRbZl:Wv0C_rU0UJ0UaJIgD42T8bjkZRQ=:eyJzY29wZSI6ImNuaHV0b25nIiwiZGVhZGxpbmUiOjE0NzQ3ODcxODB9', // uptoken是上传凭证，由其他程序生成
+                    // uptoken_url: '/uptoken',         // Ajax请求uptoken的Url，强烈建议设置（服务端提供）
+                    // uptoken_func: function(file){    // 在需要获取uptoken时，该方法会被调用
+                    //    // do something
+                    //    return uptoken;
+                    // },
+                    get_new_uptoken: false,             // 设置上传文件的时候是否每次都重新获取新的uptoken
+                    // downtoken_url: '/downtoken',
+                    // Ajax请求downToken的Url，私有空间时使用，JS-SDK将向该地址POST文件的key和domain，服务端返回的JSON必须包含url字段，url值为该文件的下载地址
+                    unique_names: true,              // 默认false，key为文件名。若开启该选项，JS-SDK会为每个文件自动生成key（文件名）
+                    // save_key: true,                  // 默认false。若在服务端生成uptoken的上传策略中指定了sava_key，则开启，SDK在前端将不对key进行任何处理
+                    domain: 'http://o9m9wx1i2.bkt.clouddn.com/',     // bucket域名，下载资源时用到，必需
+                    container: 'container',             // 上传区域DOM ID，默认是browser_button的父元素
+                    max_file_size: '100mb',             // 最大文件体积限制
+                    flash_swf_url: 'path/of/plupload/Moxie.swf',  //引入flash，相对路径
+                    max_retries: 3,                     // 上传失败最大重试次数
+                    dragdrop: true,                     // 开启可拖曳上传
+                    drop_element: 'move-img',          // 拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
+                    chunk_size: '4mb',                  // 分块上传时，每块的体积
+                    auto_start: false,                   // 选择文件后自动上传，若关闭需要自己绑定事件触发上传
+                    //x_vars : {
+                    //    查看自定义变量
+                    //    'time' : function(up,file) {
+                    //        var time = (new Date()).getTime();
+                              // do something with 'time'
+                    //        return time;
+                    //    },
+                    //    'size' : function(up,file) {
+                    //        var size = file.size;
+                              // do something with 'size'
+                    //        return size;
+                    //    }
+                    //},
+                    init: {
+                        'FilesAdded': function(up, files) {
+                            var readUploadUl = document.getElementById("read-upload");
+                            var html = readUploadUl.innerHTML;
+                            plupload.each(files, function(file) {
+                                // 文件添加进队列后，处理相关的事情
+                                html += '<li>' + file.name + '</li>';
+                            });
+                            readUploadUl.innerHTML = html;
+                        },
+                        'BeforeUpload': function(up, file) {
+                               // 每个文件上传前，处理相关的事情
+                        },
+                        'UploadProgress': function(up, file) {
+                               // 每个文件上传时，处理相关的事情
+                        },
+                        'FileUploaded': function(up, file, info) {
+                               // 每个文件上传成功后，处理相关的事情
+                               // 其中info是文件上传成功后，服务端返回的json，形式如：
+                               // {
+                               //    "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",
+                               //    "key": "gogopher.jpg"
+                               //  }
+                               // 查看简单反馈
+                               var domain = up.getOption('domain');
+                               var res = JSON.parse(info);
+                               var sourceLink = domain + res.key; // 获取上传成功后的文件的Url
+                               console.log(sourceLink)
+                        },
+                        'Error': function(up, err, errTip) {
+                               //上传出错时，处理相关的事情
+                               console.log(err, errTip);
+                        },
+                        'UploadComplete': function() {
+                               //队列文件处理完毕后，处理相关的事情
+                        }
+                        /*'Key': function(up, file) {
+                            // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
+                            // 该配置必须要在unique_names: false，save_key: false时才生效
+                            var key = "";
+                            // do something with key here
+                            return key
+                        }*/
+                    }
+                });
+
+                // domain为七牛空间对应的域名，选择某个空间后，可通过 空间设置->基本设置->域名设置 查看获取
+
+                // uploader为一个plupload对象，继承了所有plupload的方法
+                document.getElementById("up_load").onclick = function(){
+                    uploader.start();
+                }
+                document.getElementById("stop_load").onclick = function(){
+                    uploader.stop();
+                }
+            }
+        }
+        new mobj().init();
+    </script>
+</body>
+</html>
