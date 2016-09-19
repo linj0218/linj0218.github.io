@@ -57,13 +57,17 @@
     <script type="text/javascript" src="../js/util.js"></script>
     <style>
         *{margin: 0;padding:0;}
+        html, body{
+            height: 100%;
+        }
         body{
             font-size: 14px;
         }
         .body{
             padding-top: 15px;
+            height: 100%;
         }
-        ul, li{
+        ul, ul li{
             list-style: none;
             padding: 0;
             margin: 0;
@@ -81,9 +85,11 @@
             background: #ddd;
             color: #fff;
         }
+        #container{
+            text-align: center;
+        }
         #move-img{
             display: inline-block;
-            width: 460px;
             border: 1px dashed #000;
             color: #aaa;
             text-align: center;
@@ -92,6 +98,32 @@
             line-height: 80px;
             margin-bottom: 15px;
             text-decoration: none;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+        .img-list>div>div{
+            position: relative;
+            margin-top: 5px;
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .img-list>div>div>div{
+            position: relative;
+            margin-left: 5px;
+        }
+        .img-list>div>div>div>div{
+            position: relative;
+            padding-bottom: 100%;
+        }
+        .img-list img{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+        @media (min-width: 992px){
+            .activity-list {
+                height: 100%;
+            }
         }
     </style>
 </head>
@@ -106,28 +138,61 @@
                 <li><a href="javascript:void(0);">活动五</a></li>
             </ul>
         </div>
-        <div id="container" class="col-xs-12 col-sm-12 col-md-10">
+        <div id="container" class="col-xs-12 col-sm-12 col-md-8">
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <a id="move-img" href="javascript:void(0);">移动图片到这里</a>
+                <i class="col-xs-12 col-sm-3 col-md-3"></i>
+                <a class="col-xs-12 col-sm-6 col-md-6" id="move-img" href="javascript:void(0);">移动图片到这里</a>
+                <i class="col-xs-12 col-sm-3 col-md-3"></i>
             </div>
-            <a class="btn btn-default btn-md " id="pickfiles" style="width:160px" href="#" >
+            <a class="btn btn-default btn-md " id="pickfiles" href="#" >
                 <i class="glyphicon glyphicon-plus"></i>
                 <span>选择文件</span>
             </a>
 
-            <a class="btn btn-default btn-md " id="up_load" style="width:160px" href="#" >
+            <a class="btn btn-default btn-md " id="up_load" href="#" >
                 <span>确认上传</span>
             </a>  
 
-            <a class="btn btn-default btn-md " id="stop_load" style="width:160px" href="#" >
+            <a class="btn btn-default btn-md " id="stop_load" href="#" >
                 <span>暂停上传</span>
             </a> 
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-10">
-            <ul id="read-upload"></ul>
+        <div class="col-xs-12 col-sm-12 col-md-8" style="border-bottom: 1px solid #ccc; padding-bottom: 10px;">
+            <h4>待上传图片：</h4>
+            <ol id="read-upload"></ol>
         </div>
-        <div class="img-list col-xs-12 col-sm-12 col-md-10">
-
+        <div class="img-list col-xs-12 col-sm-12 col-md-8">
+            <h4>已上传图片：</h4>
+            <div>
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <div>
+                        <div>
+                            <img src="http://o9m9wx1i2.bkt.clouddn.com/o_1asu8ie1bk08c1m5i07a0nd4b.png">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <div>
+                        <div>
+                            <img src="http://o9m9wx1i2.bkt.clouddn.com/o_1asu8i8371qmd1v6q1rueqqc14u99.png">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <div>
+                        <div>
+                            <img src="http://o9m9wx1i2.bkt.clouddn.com/o_1asu8ie1bk08c1m5i07a0nd4b.png">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <div>
+                        <div>
+                            <img src="http://o9m9wx1i2.bkt.clouddn.com/o_1asu8i8371qmd1v6q1rueqqc14u99.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- http://o9m9wx1i2.bkt.clouddn.com/o_1asu8ie1bk08c1m5i07a0nd4b.png -->
             <!-- http://o9m9wx1i2.bkt.clouddn.com/o_1asu8i8371qmd1v6q1rueqqc14u99.png -->
         </div>
@@ -184,7 +249,7 @@
                             var html = readUploadUl.innerHTML;
                             plupload.each(files, function(file) {
                                 // 文件添加进队列后，处理相关的事情
-                                html += '<li>' + file.name + '</li>';
+                                html += '<li data-name="' + file.name + '">' + file.name + '</li>';
                             });
                             readUploadUl.innerHTML = html;
                         },
