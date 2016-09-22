@@ -80,11 +80,7 @@
 		    },
 		    legend: {
 		        data:[{
-		        	name: '表示未进单',
-		        	icon: 'circle'
-		        },{
-		        	name: '表示只进杂项',
-		        	icon: 'circle'
+		        	name: '所有'
 		        }],
 		        bottom: '30'
 		    },
@@ -111,17 +107,9 @@
 		        {
 		            name:'所有',
 		            type:'line',
-		            data:[120, 132, 101, 134, 90, 230, 210]
-		        },
-		        {
-		            name:'表示未进单',
-		            type:'line',
-		            data:[120, 132, 101, 134, 90, 230, 210]
-		        },
-		        {
-		            name:'表示只进杂项',
-		            type:'line',
-		            data:[120, 132, 101, 134, 90, 230, 210]
+		            data:[120, 132, 101, 134, 90, 230, 120],
+		            symbol: 'circle',
+		            symbolSize: 0
 		        }
 		    ]
 		};
@@ -151,7 +139,7 @@
 		        {
 		            name: '访问来源',
 		            type: 'pie',
-		            radius : '55%',
+		            radius : '50%',
 		            center: ['50%', '50%'],
 		            data:[
 		                {value:8, name:'分单'},
@@ -162,6 +150,17 @@
 		                {value:8, name:'课程升级'},
 		                {value:8, name:'课程续费'}
 		            ],
+		            label: {
+		            	normal: {
+		            		formatter: "{b}\n{d}%"
+		            	}
+		            },
+		            labelLine: {
+		            	normal: {
+		            		length: 10,
+		            		length2: 10
+		            	}
+		            },
 		            itemStyle: {
 		                emphasis: {
 		                    shadowBlur: 10,
