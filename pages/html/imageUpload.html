@@ -55,6 +55,9 @@
     <!-- 加载lazyload.js -->
     <script type="text/javascript" src="../js/jquery.lazyload.js"></script>
     <script type="text/javascript" src="../js/util.js"></script>
+
+    <link rel="stylesheet" href="../css/previewimg.min.css">
+    <script type="text/javascript" src="../js/previewimg.min.js"></script>
     <style>
         *{margin: 0;padding:0;}
         html, body{
@@ -161,7 +164,7 @@
             <h4>待上传图片：</h4>
             <ol id="read-upload"></ol>
         </div>
-        <div class="img-list col-xs-12 col-sm-12 col-md-8">
+        <div id="asdf" class="img-list col-xs-12 col-sm-12 col-md-8">
             <h4>已上传图片：</h4>
             <div>
                 <div class="col-xs-12 col-sm-4 col-md-3">
@@ -193,8 +196,6 @@
                     </div>
                 </div>
             </div>
-            <!-- http://o9m9wx1i2.bkt.clouddn.com/o_1asu8ie1bk08c1m5i07a0nd4b.png -->
-            <!-- http://o9m9wx1i2.bkt.clouddn.com/o_1asu8i8371qmd1v6q1rueqqc14u99.png -->
         </div>
     </div>
     <script type="text/javascript">
@@ -230,6 +231,18 @@
                     drop_element: 'move-img',          // 拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
                     chunk_size: '4mb',                  // 分块上传时，每块的体积
                     auto_start: false,                   // 选择文件后自动上传，若关闭需要自己绑定事件触发上传
+                    // 可以使用该参数来限制上传文件的类型，大小等，该参数以对象的形式传入，它包括三个属性：
+                    filters : {
+                        max_file_size : '100mb',
+                        prevent_duplicates: true, // 是否限制重复上传
+                        // Specify what files to browse for
+                        mime_types: [
+                            // {title : "flv files", extensions : "flv"} // 限定flv后缀上传格式上传
+                            // {title : "Video files", extensions : "flv,mpg,mpeg,avi,wmv,mov,asf,rm,rmvb,mkv,m4v,mp4"}, // 限定flv,mpg,mpeg,avi,wmv,mov,asf,rm,rmvb,mkv,m4v,mp4后缀格式上传
+                            // {title : "Zip files", extensions : "zip"}, // 限定zip后缀上传
+                            {title : "Image files", extensions : "jpg,gif,png"} // 限定jpg,gif,png后缀上传
+                        ]
+                    },
                     //x_vars : {
                     //    查看自定义变量
                     //    'time' : function(up,file) {
