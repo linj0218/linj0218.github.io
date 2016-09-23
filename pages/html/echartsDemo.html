@@ -49,7 +49,7 @@
     <script type="text/javascript" src="../js/jquery-1.11.0.min.js"></script>
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script type="text/javascript" src="../js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../js/echarts.js"></script>
+    <script type="text/javascript" src="../js/echarts.simple.min.js"></script>
 
     <style>
         *{margin: 0;padding:0;}
@@ -75,9 +75,6 @@
 		        bottom: '0',
 		        left: "center"
 		    },
-		    tooltip: {
-		    	trigger: 'axis'	
-		    },
 		    legend: {
 		        data:[{
 		        	name: '表示未进单',
@@ -94,11 +91,6 @@
 		        top: '3%',
 		        containLabel: true
 		    },
-		    /*toolbox: {
-		        feature: {
-		            saveAsImage: {}
-		        }
-		    },*/
 		    xAxis: {
 		        type: 'category',
 		        boundaryGap: false,
@@ -175,13 +167,69 @@
 		            radius : '50%',
 		            center: ['50%', '50%'],
 		            data:[
-		                {value:8, name:'分单'},
-		                {value:8, name:'商务单'},
-		                {value:25, name:'少儿新签'},
-		                {value:9, name:'成人新签'},
-		                {value:34, name:'公益课'},
-		                {value:8, name:'课程升级'},
-		                {value:8, name:'课程续费'}
+		                {
+		                	name:'少儿新签',
+		                	value:25,
+		                	itemStyle: {
+		                		normal: {
+		                			color: '#5A9BD5'
+		                		}
+		                	}
+		                },
+		                {
+		                	name:'成人新签',
+		                	value:9,
+		                	itemStyle: {
+		                		normal: {
+		                			color: '#ED7C30'
+		                		}
+		                	}
+		                },
+		                {
+		                	name:'公益课',
+		                	value:34,
+		                	itemStyle: {
+		                		normal: {
+		                			color: '#A5A5A5'
+		                		}
+		                	}
+		                },
+		                {
+		                	name:'课程升级',
+		                	value:8, 
+		                	itemStyle: {
+		                		normal: {
+		                			color: '#FFC100'
+		                		}
+		                	}
+		                },
+		                {
+		                	name:'课程续费',
+		                	value:8,
+		                	itemStyle: {
+		                		normal: {
+		                			color: '#4472C5'
+		                		}
+		                	}
+		                },
+		                {
+		                	name:'分单',
+		                	value:8,
+		                	itemStyle: {
+		                		normal: {
+		                			color: '#70AD46'
+		                		}
+		                	}
+		                },
+		                {
+		                	name:'商务单',
+		                	value:8,
+		                	itemStyle: {
+		                		normal: {
+		                			color: '#245E91'
+		                		}
+		                	}
+		                }
 		            ],
 		            label: {
 		            	normal: {
