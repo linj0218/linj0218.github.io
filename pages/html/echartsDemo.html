@@ -73,9 +73,14 @@
 		    title: {
 		        text: '共康国艺馆最近一周业绩折线图',
 		        bottom: '0',
-		        left: "center"
+		        left: "center",
+		        textStyle: {
+		        	fontWeight: 'normal',
+		        	fontSize: '14'
+		        }
 		    },
 		    legend: {
+		    	selectedMode: false,
 		        data:[{
 		        	name: '表示未进单',
 		        	icon: 'circle'
@@ -106,6 +111,7 @@
 		        	data:[, , 0, , , , 0, 0, , , , 0, 0, 0, 0],
 		        	symbol: 'circle',
 		            symbolSize: 8,
+		            hoverAnimation: false,
 		            itemStyle:{
 		            	normal: {
 		            		color: '#f00'
@@ -118,6 +124,7 @@
 		        	data:[, , , , 90, , , , , , 30, , , , ],
 		        	symbol: 'circle',
 		            symbolSize: 8,
+		            hoverAnimation: false,
 		            itemStyle:{
 		            	normal: {
 		            		color: '#CDCD00'
@@ -130,6 +137,7 @@
 		            data:[120, 120, 0, 380, 90, 400, 0, 0, 100, 532, 30, 0, 0, 0, 0],
 		            symbol: 'circle',
 		            symbolSize: 0,
+		            hoverAnimation: false,
 		            itemStyle:{
 		            	normal: {
 		            		color: '#5A9BD5'
@@ -146,9 +154,13 @@
         var myChart2 = echarts.init(document.getElementById('main2'));
         option2 = {
 		    title : {
-		        text: '共康国艺馆最近一周业绩折线图',
+		        text: '共康国艺馆最近一周单数饼状图',
 		        bottom: '0',
-		        left: "center"
+		        left: "center",
+		        textStyle: {
+		        	fontWeight: 'normal',
+		        	fontSize: '14'
+		        }
 		    },
 		    tooltip : {
 		        trigger: 'item',
@@ -158,7 +170,7 @@
 		        {
 		            name: '访问来源',
 		            type: 'pie',
-		            radius : '50%',
+		            radius : '55%',
 		            center: ['50%', '50%'],
 		            data:[
 		                {
@@ -227,16 +239,27 @@
 		            ],
 		            label: {
 		            	normal: {
-		            		formatter: "{b}\n{d}%"
+		            		formatter: "{b}\n{d}%",
+		            		textStyle: {
+		            			color: '#555',
+		            			fontSize: '12'
+		            		}
 		            	}
 		            },
 		            labelLine: {
 		            	normal: {
 		            		length: 10,
-		            		length2: 10
+		            		length2: 10,
+		            		lineStyle: {
+		            			color: '#555'
+		            		}
 		            	}
 		            },
 		            itemStyle: {
+		            	normal:{
+					        borderWidth: 2,
+					        borderColor: '#fff'
+		            	},
 		                emphasis: {
 		                    shadowBlur: 10,
 		                    shadowOffsetX: 0,
