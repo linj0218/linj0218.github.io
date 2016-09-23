@@ -80,7 +80,11 @@
 		    },
 		    legend: {
 		        data:[{
-		        	name: '所有'
+		        	name: '表示未进单',
+		        	icon: 'circle'
+		        },{
+		        	name: '表示只进杂项',
+		        	icon: 'circle'
 		        }],
 		        bottom: '30'
 		    },
@@ -98,18 +102,47 @@
 		    xAxis: {
 		        type: 'category',
 		        boundaryGap: false,
-		        data: ['9/1','9/2','9/3','9/4','9/5','9/6','9/7']
+		        data: ['9/1','9/2','9/3','9/4','9/5','9/6','9/7','9/8','9/9','9/10','9/11','9/12','9/13','9/14','9/15']
 		    },
 		    yAxis: {
 		        type: 'value'
 		    },
 		    series: [
 		        {
+		        	name: '表示未进单',
+		        	type: 'line',
+		        	data:[, , 0, , , , 0, 0, , , , 0, 0, 0, 0],
+		        	symbol: 'circle',
+		            symbolSize: 8,
+		            itemStyle:{
+		            	normal: {
+		            		color: '#f00'
+		            	}
+		            }
+		        },
+		        {
+		        	name: '表示只进杂项',
+		        	type: 'line',
+		        	data:[, , , , 90, , , , , , 30, , , , ],
+		        	symbol: 'circle',
+		            symbolSize: 8,
+		            itemStyle:{
+		            	normal: {
+		            		color: '#CDCD00'
+		            	}
+		            }
+		        },
+		        {
 		            name:'所有',
 		            type:'line',
-		            data:[120, 132, 101, 134, 90, 230, 120],
+		            data:[120, 120, 0, 380, 90, 400, 0, 0, 100, 532, 30, 0, 0, 0, 0],
 		            symbol: 'circle',
-		            symbolSize: 0
+		            symbolSize: 0,
+		            itemStyle:{
+		            	normal: {
+		            		color: '#5A9BD5'
+		            	}
+		            }
 		        }
 		    ]
 		};
