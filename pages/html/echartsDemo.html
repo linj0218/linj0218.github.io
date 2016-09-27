@@ -106,35 +106,9 @@
 		    },
 		    series: [
 		        {
-		        	name: '表示未进单',
-		        	type: 'line',
-		        	data:[, , 0, , , , 0, 0, , , , 0, 0, 0, 0],
-		        	symbol: 'circle',
-		            symbolSize: 8,
-		            hoverAnimation: false,
-		            itemStyle:{
-		            	normal: {
-		            		color: '#f00'
-		            	}
-		            }
-		        },
-		        {
-		        	name: '表示只进杂项',
-		        	type: 'line',
-		        	data:[, , , , 90, , , , , , 30, , , , ],
-		        	symbol: 'circle',
-		            symbolSize: 8,
-		            hoverAnimation: false,
-		            itemStyle:{
-		            	normal: {
-		            		color: '#CDCD00'
-		            	}
-		            }
-		        },
-		        {
 		            name:'所有',
 		            type:'line',
-		            data:[120, 120, 0, 380, 90, 400, 0, 0, 100, 532, 30, 0, 0, 0, 0],
+		            data:[120, 120, 0, 380, 90, 400, 0, 0, 100, 532, 30, 0, 0, 0, 0, 120, 120, 0, 380, 90, 400, 0, 0, 100, 532, 30, 0, 0, 0, 0, 120, 120, 0, 380, 90, 400, 0, 0, 100, 532, 30, 0, 0, 0, 0, 120, 120, 0, 380, 90, 400, 0, 0, 100, 532, 30, 0, 0, 0, 0, 120, 120, 0, 380, 90, 400, 0, 0, 100, 532, 30, 0, 0, 0, 0, 120, 120, 0, 380, 90, 400, 0, 0, 100, 532, 30, 0, 0, 0, 0, 120, 120, 0, 380, 90, 400, 0, 0, 100, 532, 30, 0, 0, 0, 0, 120, 120, 0, 380, 90, 400, 0, 0, 100, 532, 30, 0, 0, 0, 0, 120, 120, 0, 380, 90, 400, 0, 0, 100, 532, 30, 0, 0, 0, 0, 120, 120, 0, 380, 90, 400, 0, 0, 100, 532, 30, 0, 0, 0, 0, 120, 120, 0, 380, 90, 400, 0, 0, 100, 532, 30, 0, 0, 0, 0, 120, 120, 0, 380, 90, 400, 0, 0, 100, 532, 30, 0, 0, 0, 400],
 		            symbol: 'circle',
 		            symbolSize: 0,
 		            hoverAnimation: false,
@@ -170,7 +144,7 @@
 		        {
 		            name: '访问来源',
 		            type: 'pie',
-		            radius : '55%',
+		            radius : '60%',
 		            center: ['50%', '50%'],
 		            data:[
 		                {
@@ -239,7 +213,7 @@
 		            ],
 		            label: {
 		            	normal: {
-		            		formatter: "{b}\n{d}%",
+		            		formatter: "{d}%\n{b}",
 		            		textStyle: {
 		            			color: '#555',
 		            			fontSize: '12'
@@ -249,17 +223,13 @@
 		            labelLine: {
 		            	normal: {
 		            		length: 10,
-		            		length2: 10,
+		            		length2: 20,
 		            		lineStyle: {
 		            			color: '#555'
 		            		}
 		            	}
 		            },
 		            itemStyle: {
-		            	normal:{
-					        borderWidth: 2,
-					        borderColor: '#fff'
-		            	},
 		                emphasis: {
 		                    shadowBlur: 10,
 		                    shadowOffsetX: 0,
@@ -269,7 +239,7 @@
 		        }
 		    ]
 		};
-	myChart2.setOption(option2);
+	// myChart2.setOption(option2);
     </script>
 </body>
 </html>
