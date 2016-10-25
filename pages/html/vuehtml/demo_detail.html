@@ -239,7 +239,38 @@
 		            }
 				} 
 			})
-			
+			/*var url  = "http://120.26.124.79:8002/report_service_test";
+	        var port = "/incomeCtl/income/getIncomeLog";
+	        var data = {departmentId: 28};
+
+	        function jsonpAjax(port, data, callback){
+	            var data = {};
+	            $.ajax({
+	                type        : 'POST',
+	                url         : url + port,
+	                crossDomain : true,
+	                data        : data,
+	                cache       : false,
+	                timeout     : 20000,
+	                dataType    : 'jsonp',
+	                jsonp       : 'jsoncallback',
+	                contentType : 'application/json; charset=utf-8',
+	                success     : function (r) {
+	                    callback(r);
+	                },
+	                error       : function(err){
+	                    console.log(err);
+	                }
+	            })
+	        }
+	        jsonpAjax(port, data, function(res){
+	            console.log(res);
+	        })*/
+	        /*$.getJSON(url + port + "&jsoncallback=?",  data, 
+			    function (data) {
+			        alert(data);
+			    }
+			);*/
 		</script>
 	</body>
 </html>

@@ -29,12 +29,6 @@
         font-size: .4375rem;
         font-family: SimHei;
     }
-    #changed, #never-changed{
-        display: none;
-    }
-    #changed.on, #never-changed.on{
-        display: block;
-    }
     header{
         height: 1.3rem;
         line-height: 1.3rem;
@@ -140,47 +134,85 @@
     .panel-group {
         margin-bottom: 0;
     }
+    .fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-active {
+  opacity: 0
+}
 </style>
 </head>
 <body>
     <div id="body">
-        <div id="changed" v-bind:class="{ on: isChanged }">
-            <div v-for="numlog in numlogList">
-                <header class="bg1">被修改{{ numlog.num }}次</header>
-                <div class="panel-group">
-                    <div class="panel panel-default" v-for="log in numlog.logList">
-                        <div class="panel-heading bg2">
-                            <h4 class="panel-title" v-on:click="goNext(log.departmentId)">
-                                <a data-toggle="collapse">{{ log.department }}</a>
-                            </h4>
+        <transition name="fade">
+            <div id="changed" v-if="show">
+                <div v-for="numlog in numlogList">
+                    <header class="bg1">被修改{{ numlog.num }}次</header>
+                    <div class="panel-group">
+                        <div class="panel panel-default" v-for="log in numlog.logList">
+                            <div class="panel-heading bg2">
+                                <h4 class="panel-title" v-on:click="goNext(log.departmentId)">
+                                    <a data-toggle="collapse">{{ log.department }}</a>
+                                </h4>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="never-changed" v-bind:class="{ on: isNeverChanged }">
-            <div class="img-box">
-                <img src="../../img/shield.png">
+        </transition>
+        <transition name="fade">
+            <div id="never-changed" v-if="!show">
+                <div class="img-box">
+                    <img src="../../img/shield.png">
+                </div>
+                <div>所有馆录入严谨，未在审核过程中被修改</div>
             </div>
-            <div>所有馆录入严谨，未在审核过程中被修改</div>
-        </div>
+        </transition>
     </div>
     <script type="text/javascript">
         var res = {"numlogList":[{"logList":[{"department":"新洲","departmentId":28}],"num":5},{"logList":[{"department":"富都","departmentId":22},{"department":"天山国文","departmentId":34}],"num":4},{"logList":[{"department":"金桥","departmentId":1},{"department":"日月光","departmentId":17}],"num":3},{"logList":[{"department":"中环国文","departmentId":42}],"num":2},{"logList":[{"department":"古美","departmentId":2},{"department":"大宁","departmentId":4},{"department":"七宝","departmentId":5},{"department":"卢湾","departmentId":12},{"department":"中环","departmentId":14},{"department":"南方","departmentId":16},{"department":"川沙","departmentId":18},{"department":"宝地","departmentId":20},{"department":"富荟","departmentId":23},{"department":"南山","departmentId":25},{"department":"金海湾","departmentId":31},{"department":"七宝国文","departmentId":33},{"department":"共康国文","departmentId":36},{"department":"世纪国文","departmentId":37},{"department":"莘庄国文","departmentId":39},{"department":"宝地国文","departmentId":40}],"num":1}]};
 
-        var mainObj = new Vue({
+        var vm = new Vue({
             el: '#body',
             data: {
                 numlogList: res.numlogList,
-                isChanged: true,
-                isNeverChanged: false
+                show: true,
+                a: ''
             },
             methods: {
                 goNext: function(departmentId){
                     window.location.href = "./demo_detail.html?departmentId=" + departmentId;
                 }
             }
-        })
+        });
+        /*var url  = "http://120.26.124.79:8002/report_service_test";
+        var port = "/incomeCtl/income/getIncomeLogsList";
+        var data = {};
+
+        function jsonpAjax(port, data, callback){
+            var data = {};
+            $.ajax({
+                type        : 'GET',
+                url         : url + port,
+                data        : data,
+                crossDomain : true,
+                cache       : false,
+                timeout     : 20000,
+                dataType    : 'jsonp',
+                jsonp       : 'jsoncallback',
+                contentType : 'application/json; charset=utf-8',
+                success     : function (r) {
+                    callback(r);
+                },
+                error       : function(err){
+                    console.log(err);
+                }
+            })
+        }
+        jsonpAjax(port, JSON.stringify(data), function(res){
+            console.log(res);
+        })*/
+
     </script>
 </body>
 </html>
