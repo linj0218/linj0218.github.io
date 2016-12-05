@@ -1,5 +1,5 @@
 var url = ""
-var jsonpurl = "http://120.26.124.79:8002/report_service_test";
+var jsonpurl = "http://192.168.1.240:8080/pws";
 
 function loadHtml(url,target){
     var args = '';

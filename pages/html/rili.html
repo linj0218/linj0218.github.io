@@ -12,6 +12,7 @@
 <script type="text/javascript" src="../js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../js/mobiscroll.custom-2.17.0.min.js"></script>
+<script type="text/javascript" src="../js/util.js"></script>
 <style type="text/css">
     .body{
         padding: 20px;
@@ -97,7 +98,7 @@
                 if(t){
                     now = new Date(t);
                 }
-                var firstDay = new Date(2016,11,28); 
+                var firstDay = new Date(2016,9,31); 
                 //计算当前时间与本年第一天的时差(返回一串数值，代表两个日期相差的毫秒数)
                 var dateDiff = now - firstDay; 
                 //一天的毫秒数
@@ -120,6 +121,19 @@
             }
         }
         new mobj().init();
+        jsonpAjax("/pws002", {}, function(res){
+            console.log(JSON.stringify(res.data));
+        })
+        /*var res = [{"a":"世纪","b":"庄建铜"},{"a":"镇坪","b":"韩丽丽"},{"a":"大宁","b":"蒋捷"},{"a":"大华","b":"庄建铜"},{"a":"徐汇","b":"杨晓珊"},{"a":"中环","b":"刘野"},{"a":"松江","b":"刘红彬"},{"a":"南方","b":"庄建铜"},{"a":"古美","b":"庄建铜"},{"a":"豫园","b":"朱亚东"},{"a":"七宝","b":"赵丹"},{"a":"金桥","b":"范艳"},{"a":"田林","b":"王静"},{"a":"卢湾","b":"柳洁"},{"a":"五角场","b":"朱亚东"},{"a":"天山","b":"王静"},{"a":"振华","b":"马婵娟"},{"a":"南山","b":"刘濒水"},{"a":"日月光","b":"柳洁"},{"a":"侨香","b":"张宏宇"},{"a":"七宝语文","b":"伍智"},{"a":"五角场语文","b":"姜存斌"},{"a":"天山语文","b":"程桂秋"},{"a":"川沙","b":"李漫"},{"a":"宝体","b":"王雪"},{"a":"共康","b":"张友云"},{"a":"宝地","b":"方季"},{"a":"共康语文","b":"管辉"},{"a":"世纪语文","b":"朱卉"},{"a":"川沙语文","b":"朱卉"},{"a":"金海湾","b":"王婷"},{"a":"莘庄","b":"杨艳"},{"a":"宝地语文","b":"徐菲菲"},{"a":"莘庄语文","b":"王满"},{"a":"富都","b":"唐秋平"},{"a":"富都语文","b":"唐爽"},{"a":"中环语文","b":"徐菲菲"},{"a":"富荟","b":"罗超"},{"a":"富荟语文","b":"嵇俊"},{"a":"新洲","b":"张娜"},{"a":"横岗","b":"何霞"},{"a":"天溢","b":"王婷"},{"a":"朝阳大悦城","b":"刘恒"},{"a":"坂田","b":"刘濒水"},{"a":"镇坪语文","b":"陈瀚霖"},{"a":"金汇","b":"刘红彬"},{"a":"金汇语文","b":"管辉"},{"a":"荔湾","b":"王婷"}];
+        function ttt(data){
+            console.log(data)
+            fileMap = new Map();
+            for(var i=0,len=data.length; i<len; i++){
+                fileMap[data[i].a]=data[i].b
+            }
+
+        }
+        ttt(res)*/
     </script>
 </body>
 </html>
