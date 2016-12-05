@@ -64,12 +64,12 @@
 			textWidth: 20, // 弹幕间距
 			textHeight: 20,
 			textList: [
-				{msg:"17素材网不错我经常去，嘿嘿！", x:600, y:20},
-				{msg:"今晚有没有LOL的一块啊？", x:620, y: 40},
-				{msg:"这种烟真心不好抽", x:640, y: 60},
-				{msg:"星期天我想去爬长城", x:660, y: 80},
-				{msg:"边喝酒边看电影", x:680, y: 100},
-				{msg:"如果有任何疑问可以扫码联系我哦！", x:700, y: 120}
+				{msg:"17素材网不错我经常去，嘿嘿！", x:600, y:20, color: '#fff'},
+				{msg:"今晚有没有LOL的一块啊？", x:620, y: 40, color: '#fff'},
+				{msg:"这种烟真心不好抽", x:640, y: 60, color: '#f00'},
+				{msg:"星期天我想去爬长城", x:660, y: 80, color: '#fff'},
+				{msg:"边喝酒边看电影", x:680, y: 100, color: '#fff'},
+				{msg:"如果有任何疑问可以扫码联系我哦！", x:700, y: 120, color: '#fff'}
 			],
 			c: '',
 			ctx: '',
@@ -96,7 +96,7 @@
 
 					for(var j=0; j<_this.textList.length; j++){
 						_this.textList[j].x -= 1;
-						_this.ctx.fillStyle = "#fff";
+						_this.ctx.fillStyle = _this.textList[j].color;
 						_this.ctx.fillText(_this.textList[j].msg, _this.textList[j].x, _this.textList[j].y);
 					}
 					for(var i=0; i<_this.textList.length; i++){
@@ -111,10 +111,10 @@
 			},
 			addMsg: function(){
 				if(!!this.msgInput) {
-					var y = this.textList[this.textList.length-1].y+this.textHeight;
+					var y = this.textList.length==0 ? this.textHeight : this.textList[this.textList.length-1].y+this.textHeight;
 					y = (y >= this.height-this.textHeight ? this.textHeight : y);
 
-					this.textList.push({msg: this.msgInput, x: 600, y: y});
+					this.textList.push({msg: this.msgInput, x: 600, y: y, color: '#fff'});
 					this.msgInput = "";
 				}
 			}
