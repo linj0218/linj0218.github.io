@@ -1,0 +1,10 @@
+$color: #fff;
+$bg-color: #f00;
+$pt: 10px;
+
+body{
+	color: $color;
+	background: $bg-color;
+	font-size: 14px;
+	padding-top: $pt;
+}
