@@ -51,8 +51,8 @@
         </div>
         <div class="row">
             <h4 class="col-md-12">天气情况</h4>
-            <div class="col-xs-12 col-sm-4 col-md-4">当前城市：<i id="now-wher">上海</i></div>
-            <div class="col-xs-12 col-sm-4 col-md-4">当前温度：<i id="now-weat">11˚C</i></div>
+            <div class="col-md-12">当前城市：<i id="now-wher">上海</i></div>
+            <div class="col-md-12">当前温度：<i id="now-weat">11˚C</i></div>
             <div class="col-xs-6 col-sm-4 col-md-4" id="today-weather">
                 <div>今日：<i>13日星期二</i></div>
                 <div>天气：<i>小雨</i></div>
@@ -69,7 +69,7 @@
                 <div>高温：<i>13˚C</i></div>
                 <div>低温：<i>8˚C</i></div>
             </div>
-            <div class="col-xs-12 col-sm-4 col-md-4">穿衣情况：<i id="clothes">感冒几率较低</i></div>
+            <div class="col-xs-12 col-sm-12 col-md-12">穿衣情况：<i id="clothes">感冒几率较低</i></div>
         </div>
         <div class="row" style="padding: 10px;">
             <strong>注：</strong>
@@ -161,7 +161,7 @@
                                 "<div>高温：<i>"+(res1.high.split(" ")[1])+"</i></div>"+
                                 "<div>低温：<i>"+(res1.low.split(" ")[1])+"</i></div>";
                     tomorrowHtml += ""+
-                                "<div>今日：<i>"+res2.date+"</i></div>"+
+                                "<div>明日：<i>"+res2.date+"</i></div>"+
                                 "<div>天气：<i>"+res2.type+"</i></div>"+
                                 "<div>风向：<i>"+res2.fengxiang+"</i></div>"+
                                 "<div>风力：<i>"+res2.fengli+"</i></div>"+
