@@ -122,7 +122,26 @@ function jsonAjax(port, data, callback){
         error:function(e){
             // 错误回调
             console.error(e);
-            !!vm?vm.isLoading=false:null;
+            alert("当前网络不稳定，请求失败。");
+        }
+    });
+}
+
+/* AJAX GET请求 */
+function jsonGetAjax(port, data, callback){
+    Ajax.init({
+        type        : 'GET',
+        url         : url+port,
+        dataType    : 'json',
+        data        : data,
+        time        : 20000,
+        contentType : 'application/json; charset=utf-8',
+        success:function(r){
+            callback(r)
+        },
+        error:function(e){
+            // 错误回调
+            console.error(e);
             alert("当前网络不稳定，请求失败。");
         }
     });
