@@ -6,3 +6,5 @@ https://linj0218.github.io/pages/pwshtml/danmu.html
 https://linj0218.github.io/pages/html/shuiqiu.html
 # 纯js贪吃蛇
 https://linj0218.github.io/pages/html/snake.html
+# 纯js俄罗斯方块
+https://linj0218.github.io/pages/html/tetris.html
