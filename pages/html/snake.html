@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>snake</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="title" content="" />
+    <meta name="author" content="-06" />
+    <meta name="Copyright" content="" />
+    <!-- 让IE浏览器用最高级内核渲染页面 还有用 Chrome 框架的页面用webkit 内核
+    ================================================== -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- IOS6全屏 Chrome高版本全屏
+    ================================================== -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- 让360双核浏览器用webkit内核渲染页面
+    ================================================== -->
+    <meta name="renderer" content="webkit">
+    <!-- Mobile Specific Metas
+    ================================================== -->
+    <!-- !!!注意 minimal-ui 是IOS7.1的新属性，最小化浏览器UI -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="format-detection" content="telephone=no">
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            font-size: 14px;
+        }
+        .table{
+            margin: 10px;
+            text-align: center;
+        }
+        .table table{
+            border-spacing: 0;
+            border-color: #fff;
+            border-collapse: collapse;
+            margin: auto;
+        }
+        .table td{
+            width: 10px;
+            height: 10px;
+            border: 1px solid #eee;
+            box-sizing: border-box;
+        }
+        .food{
+            background: #f00;
+        }
+        .ss{
+            background: greenyellow;
+            border: none !important;
+        }
+        .control{
+            text-align: center;
+            margin: 1rem 0;
+        }
+        .control>div{
+            width:300px;
+            margin: auto;
+            text-align: left;
+            height: 2rem;
+        }
+        #core{
+            border: none;
+            color: #f00;
+            font-size: 1.2rem;
+        }
+        .color-1,.color-2{
+            display: inline-block;
+            width:12px;
+            height:12px;
+        }
+        .color-1{
+            background: #f00;
+        }
+        .color-2{
+            background: greenyellow;
+        }
+    </style>
+</head>
+<body>
+    <div class="table">
+
+    </div>
+    <div class="control">
+        <div>分数：<input id="core" type="text" value="0" readonly></div>
+        <div>状态：<label id="status">未开始 (空格 space 开始游戏)</label></div>
+        <div>说明：
+            <p style="text-indent: 2rem;">红色 <i class="color-1"></i> 为食物，绿色 <i class="color-2"></i> 为贪吃蛇，控制方向键 ↑、↓、←、→ 控制贪吃蛇的移动，空格 space 开始/暂停/结束。贪吃蛇碰到墙体或自己的身体，游戏结束。</p>
+            <p style="text-indent: 2rem;">随着贪吃蛇吃掉的食物的增长，贪吃蛇行动的速度会加快。</p></div>
+    </div>
+</body>
+<script>
+    var initX     = 5;
+    var initY     = 5;
+    var w         = 50;
+    var h         = 50;
+    var UP        = 38;
+    var RIGHT     = 39;
+    var DOWN      = 40;
+    var LEFT      = 37;
+    var SPACE     = 32;
+    var ISSTOP    = true;
+    var speed     = 300;
+    var speedStep = 2;
+    var core      = 0;
+    var text1     = "未开始 (空格 space 开始游戏)";
+    var text2     = "进行中 (空格 space 暂停游戏)";
+    var text3     = "暂停中 (空格 space 继续游戏)";
+    var text4     = "游戏结束 <button id='reStart'>重新开始游戏</button>";
+    var mObj      = function(){
+        var mainThis    = this;
+        var direction    = RIGHT;
+        var porsFood     = {};
+        var porsList     = [];
+        var isDone       = false;
+        var eatFood      = false;
+        this.clearFlg    = 0;
+        this.bgBox       = document.getElementsByClassName("table")[0];
+        this.status      = document.getElementById("status");
+        this.core        = document.getElementById("core");
+        this.initTable   = function(){
+            var table = "";
+            table += "<table>";
+            for(var i=0; i<h; i++){
+                table += "<tr>";
+                for(var j=0; j<w; j++){
+                    table += "<td id=\"box-"+i+"-"+j+"\"></td>";
+                }
+                table += "</tr>";
+            }
+            table += "</table>";
+            mainObj.bgBox.innerHTML = table;
+        };
+        this.randomNum   = function(){
+            var num = parseInt(Math.random()*w);
+            return num;
+        };
+        this.hasClass    = function(ele,cls){
+            return ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
+        };
+        this.proFood     = function(){
+            var x = mainThis.randomNum();
+            var y = mainThis.randomNum();
+            var food = document.getElementById("box-"+x+"-"+y+"");
+            if(mainThis.hasClass(food,"ss")){
+                console.log("重叠了");
+                mainThis.proFood();
+                return ;
+            }
+            porsFood.x = x;
+            porsFood.y = y;
+            console.log(porsFood);
+            food.className = "food";
+        };
+        this.initSnake   = function(){
+            var ss = document.getElementById("box-"+initX+"-"+initY+"");
+            porsList.push({"x":initX,"y":initY});
+            ss.className = "ss";
+        };
+        this.eventBind   = function(){
+            document.onkeydown       = function(e){
+                var head  = porsList[porsList.length-1];
+                var event = e||window.event;
+                document.getElementById("box-"+porsList[0].x+"-"+porsList[0].y).className = "";
+                switch (event.keyCode){
+                    case UP:
+                        if(isDone && direction!=DOWN){
+                            direction = event.keyCode;
+                            isDone = false;
+                        }
+                        break;
+                    case RIGHT:
+                        if(isDone && direction!=LEFT){
+                            direction = event.keyCode;
+                            isDone = false;
+                        }
+                        break;
+                    case DOWN:
+                        if(isDone && direction!=UP){
+                            direction = event.keyCode;
+                            isDone = false;
+                        }
+                        break;
+                    case LEFT:
+                        if(isDone && direction!=RIGHT){
+                            direction = event.keyCode;
+                            isDone = false;
+                        }
+                        break;
+                    case SPACE:
+                        if(ISSTOP){
+                            ISSTOP = false;
+                            isDone = true;
+                            mainThis.move();
+                            mainThis.status.innerHTML = text2;
+                        }else{
+                            ISSTOP = true;
+                            clearInterval(mainThis.clearFlg);
+                            mainThis.status.innerHTML = text3;
+                        }
+                        break;
+                    default:
+                        console.log(event.keyCode);
+                        break;
+                }
+                porsList[porsList.length-1] = head;
+                for(var i=0; i<porsList.length; i++){
+                    document.getElementById("box-"+porsList[i].x+"-"+porsList[i].y).className = "ss";
+                }
+                isDone = true;
+            };
+        };
+        this.reStartBind = function(){
+            mainThis.status.innerHTML = text4;
+            document.getElementById("reStart").onclick = function(){
+                mainThis.core.value = 0;
+                window.history.go(0);
+            };
+        };
+        this.move        = function(){
+            mainThis.clearFlg = setInterval(function(){
+                var head  = porsList[porsList.length-1];
+                eatFood = false;
+                switch (direction){
+                    case UP:
+                        if(head.x == porsFood.x+1 && head.y == porsFood.y){
+                            eatFood = true;
+                        }
+                        break;
+                    case RIGHT:
+                        if(head.x == porsFood.x && head.y == porsFood.y-1) {
+                            eatFood = true;
+                        }
+                        break;
+                    case DOWN:
+                        if(head.x == porsFood.x-1 && head.y == porsFood.y) {
+                            eatFood = true;
+                        }
+                        break;
+                    case LEFT:
+                        if(head.x == porsFood.x && head.y == porsFood.y+1) {
+                            eatFood = true;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                if(eatFood){
+                    mainThis.core.value = ++core;
+                    porsList[porsList.length] = {"x":porsFood.x,"y":porsFood.y};
+                    if(speed!=0){
+                        speed -= speedStep;
+                    }
+                    console.log(speed);
+                    clearInterval(mainThis.clearFlg);
+                    mainThis.proFood();
+                    setTimeout(mainThis.move(),speed);
+                }else{
+                    document.getElementById("box-"+porsList[0].x+"-"+porsList[0].y).className = "";
+                    for(var i=0; i<porsList.length-1; i++){
+                        porsList[i].x = porsList[i+1].x;
+                        porsList[i].y = porsList[i+1].y;
+                    }
+                    switch (direction){
+                        case UP:
+                            head.x--;
+                            break;
+                        case RIGHT:
+                            head.y++;
+                            break;
+                        case DOWN:
+                            head.x++;
+                            break;
+                        case LEFT:
+                            head.y--;
+                            break;
+                        default:
+                            break;
+                    }
+                    porsList[porsList.length-1] = head;
+                }
+
+                if(porsList[porsList.length-1].x<0 || porsList[porsList.length-1].x>w || porsList[porsList.length-1].y<0 || porsList[porsList.length-1].y>h){
+                    clearInterval(mainThis.clearFlg);
+                    mainThis.reStartBind();
+                    alert("game over");
+                    return false;
+                }
+                for(var i=0; i<porsList.length; i++){
+                    for(var j=i+1; j<porsList.length; j++){
+                        if(porsList[i].x==porsList[j].x && porsList[i].y==porsList[j].y){
+                            clearInterval(mainThis.clearFlg);
+                            mainThis.reStartBind();
+                            alert("game over");
+                            break;
+                        }
+                    }
+                    document.getElementById("box-"+porsList[i].x+"-"+porsList[i].y).className = "ss";
+                }
+            },speed);
+        };
+        this.init        = function(){
+            mainThis.initTable();
+            mainThis.initSnake();
+            mainThis.proFood();
+            mainThis.eventBind();
+        };
+    };
+
+    var mainObj = new mObj();
+    mainObj.init();
+</script>
+</html>
