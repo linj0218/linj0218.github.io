@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tetris</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="title" content="" />
+    <meta name="author" content="-06" />
+    <meta name="Copyright" content="" />
+    <!-- 让IE浏览器用最高级内核渲染页面 还有用 Chrome 框架的页面用webkit 内核
+    ================================================== -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- IOS6全屏 Chrome高版本全屏
+    ================================================== -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- 让360双核浏览器用webkit内核渲染页面
+    ================================================== -->
+    <meta name="renderer" content="webkit">
+    <!-- Mobile Specific Metas
+    ================================================== -->
+    <!-- !!!注意 minimal-ui 是IOS7.1的新属性，最小化浏览器UI -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="format-detection" content="telephone=no">
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            font-size: 14px;
+        }
+        .box{
+            height: 500px;
+            text-align: center;
+        }
+        .main{
+            padding: 10px;
+            display: inline-block;
+            vertical-align: top;
+        }
+        .view{
+            display: inline-block;
+            vertical-align: top;
+            width: 120px;
+            padding: 10px;
+        }
+        .main table, .next-unit table{
+            border-spacing: 0;
+            border-collapse: collapse;
+            margin: auto;
+        }
+        .main table td,.next-unit table td{
+            width: 20px;
+            height: 20px;
+            border: 1px solid #eee;
+        }
+        .next-unit{
+            margin-bottom: 10px;
+        }
+        #score{
+            border: none;
+            width: 100%;
+            text-align: center;
+            color: #f00;
+        }
+        td.on{
+            background: #f00;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="main">
+
+        </div>
+        <div class="view">
+            <!--<div class="next-unit">
+                <label>下一个：</label>
+                <table>
+                    <tr><td></td><td></td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td><td></td></tr>
+                </table>
+            </div>-->
+            <div>
+                <label>得分</label>
+                <input readonly id="score" value="0">
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var w          = 10;
+    var h          = 18;
+    var CHANGE     = 38;
+    var RIGHT      = 39;
+    var DOWN       = 40;
+    var LEFT       = 37;
+    var SPACE      = 32;
+    var score      = 0;
+    var kindNum    = 7;
+    var clearFlg   = 0;
+    var speed      = 500;
+    var speedStep  = 5;
+    var isStop     = true;
+    var isBottom   = false;
+    var unit       = new Array(4);
+    var nextUnit   = new Array(4);
+    var exitList   = new Array(h);
+    var mObj       = function(){
+        this.main   = document.getElementsByClassName("main")[0];
+        this._score = document.getElementById("score");
+    };
+    mObj.prototype = {
+        initPage  : function(){
+            var html = [];
+            html.push("<table>");
+            for(var i=0; i<h; i++){
+                html.push("<tr>");
+                for(var j=0; j<w; j++){
+                    html.push("<td id=\"box-"+i+"-"+j+"\"></td>");
+                }
+                html.push("</tr>");
+            }
+            html.push("</table>");
+            this.main.innerHTML = html.join("");
+            for(var i=0; i<h; i++){
+                exitList[i] = new Array(w);
+                for(var j=0; j<w; j++){
+                    exitList[i][j] = 0;
+                }
+            }
+        },
+        randomNum : function(){
+            return Math.random()*(kindNum-1);
+        },
+        getUnit   : function(){
+            var mainThis = this;
+            var num      = parseInt(mainThis.randomNum());
+            switch (num){
+                case 0:
+                    unit[0] = {"x":0,"y":4};
+                    unit[1] = {"x":0,"y":5};
+                    unit[2] = {"x":1,"y":4};
+                    unit[3] = {"x":1,"y":5};
+                    break;
+                case 1:
+                    unit[0] = {"x":0,"y":4};
+                    unit[1] = {"x":1,"y":4};
+                    unit[2] = {"x":1,"y":5};
+                    unit[3] = {"x":2,"y":5};
+                    break;
+                case 2:
+                    unit[0] = {"x":0,"y":4};
+                    unit[1] = {"x":1,"y":4};
+                    unit[2] = {"x":2,"y":4};
+                    unit[3] = {"x":2,"y":5};
+                    break;
+                case 3:
+                    unit[0] = {"x":0,"y":4};
+                    unit[1] = {"x":1,"y":4};
+                    unit[2] = {"x":2,"y":4};
+                    unit[3] = {"x":1,"y":5};
+                    break;
+                case 4:
+                    unit[0] = {"x":0,"y":4};
+                    unit[1] = {"x":1,"y":4};
+                    unit[2] = {"x":2,"y":4};
+                    unit[3] = {"x":3,"y":4};
+                    break;
+                case 5:
+                    unit[0] = {"x":0,"y":5};
+                    unit[1] = {"x":1,"y":5};
+                    unit[2] = {"x":1,"y":4};
+                    unit[3] = {"x":2,"y":4};
+                    break;
+                case 6:
+                    unit[0] = {"x":0,"y":5};
+                    unit[1] = {"x":1,"y":5};
+                    unit[2] = {"x":2,"y":5};
+                    unit[3] = {"x":2,"y":4};
+                    break;
+            }
+            for(var i=0; i<unit.length; i++){
+                if(mainThis.isExit(unit[i].x,unit[i].y)){
+                    alert("game over");
+                    console.log(unit);
+                    clearInterval(clearFlg);
+                    return false;
+                }
+            }
+            for(var i=0; i<unit.length; i++){
+                document.getElementById("box-"+unit[i].x+"-"+unit[i].y).className = "on";
+            }
+        },
+        copyUnit  : function(old){
+            var o = new Array(4);
+            for(var i=0; i<4; i++){
+                o[i] = {x:0, y:0};
+            }
+            for(var i=0; i<4; i++){
+                o[i].x = old[i].x;
+                o[i].y = old[i].y;
+            }
+            return o;
+        },
+        clearUnit : function(){
+            for(var i=0; i<unit.length; i++){
+                document.getElementById("box-"+unit[i].x+"-"+unit[i].y).className = "";
+            }
+        },
+        drawUnit  : function(){
+            for(var i=0; i<unit.length; i++){
+                document.getElementById("box-"+unit[i].x+"-"+unit[i].y).className = "on";
+            }
+        },
+        isScore   : function(){
+            var lines = [];
+            for(var i=0; i<exitList.length; i++){
+                for(var j=0; j<exitList[i].length; j++){
+                    if(exitList[i][j] == 0){
+                        break;
+                    }
+                    if(j==exitList[i].length-1){
+                        lines.push(i);
+                        if(i!=0){
+                            for(var k=i-1; k>=0; k--){
+                                exitList[k+1] = exitList[k];
+                            }
+                            for(var k=0; k< w; k++){
+                                exitList[0][k] = 0;
+                            }
+                        }
+                    }
+                }
+            }
+            return lines;
+        },
+        delLines  : function(list){
+            var mainThis = this;
+            for(var i=0; i<list.length; i++){
+                for(var j=0; j<w; j++){
+                    document.getElementById("box-"+list[i]+"-"+j).className = "";
+                }
+            }
+            setTimeout(function(){
+                mainThis.redrawWin();
+            },100);
+        },
+        redrawWin : function(){
+            for(var i=0; i<h; i++){
+                for(var j=0; j<w; j++){
+                    document.getElementById("box-"+i+"-"+j).className = "";
+                }
+            }
+            for(var i=0; i<h; i++){
+                for(var j=0; j<w; j++){
+                    if(exitList[i][j]==1){
+                        document.getElementById("box-"+i+"-"+j).className = "on";
+                    }
+                }
+            }
+        },
+        score     : function(n){
+            var mainThis = this;
+            switch (n){
+                case 1:
+                    score += 10;
+                    break;
+                case 2:
+                    score += 20;
+                    break;
+                case 3:
+                    score += 30;
+                    break;
+                case 4:
+                    score += 40;
+                    break;
+            }
+            mainThis._score.value = score;
+        },
+        isExit    : function(x,y){
+            if(exitList[x][y]==1){
+                return true;
+            }
+            return false;
+        },
+        control   : function(){
+            var mainThis = this;
+            document.onkeydown = function(e){
+                switch (e.keyCode){
+                    case CHANGE:
+                        if(isStop){
+                            return false;
+                        }
+                        var tempUnit = mainThis.copyUnit(unit);
+                        var cx = Math.round((tempUnit[0].x + tempUnit[1].x + tempUnit[2].x + tempUnit[3].x)/4);
+                        var cy = Math.round((tempUnit[0].y + tempUnit[1].y + tempUnit[2].y + tempUnit[3].y)/4);
+                        for(var i=0; i<unit.length; i++){
+                            tempUnit[i].x = cx+cy-unit[i].y;
+                            tempUnit[i].y = cy-cx+unit[i].x;
+                        }
+                        for(var i=0; i<tempUnit.length; i++){
+                            if(tempUnit[i].y == (w-1) || tempUnit[i].x == (h-1) || tempUnit[i].y ==0 || mainThis.isExit(tempUnit[i].x,tempUnit[i].y)){
+                                return false;
+                            }
+                        }
+                        mainThis.clearUnit();
+                        unit = tempUnit;
+                        mainThis.drawUnit();
+                        break;
+                    case RIGHT:
+                        if(isStop){
+                            return false;
+                        }
+                        for(var i=0; i<unit.length; i++){
+                            if(unit[i].y == (w-1) || mainThis.isExit(unit[i].x,unit[i].y+1)){
+                                return false;
+                            }
+                        }
+                        mainThis.clearUnit();
+                        for(var i=0; i<unit.length; i++){
+                            unit[i].y++;
+                        }
+                        mainThis.drawUnit();
+                        break;
+                    case DOWN:
+                        if(isStop){
+                            return false;
+                        }
+                        for(var i=0; i<unit.length; i++){
+                            if(unit[i].x == (h-1) || mainThis.isExit(unit[i].x+1,unit[i].y)){
+                                return false;
+                            }
+                        }
+                        mainThis.clearUnit();
+                        for(var i=0; i<unit.length; i++){
+                            unit[i].x++;
+                        }
+                        mainThis.drawUnit();
+                        break;
+                    case LEFT:
+                        if(isStop){
+                            return false;
+                        }
+                        for(var i=0; i<unit.length; i++){
+                            if(unit[i].y == 0 || mainThis.isExit(unit[i].x,unit[i].y-1)){
+                                return false;
+                            }
+                        }
+                        mainThis.clearUnit();
+                        for(var i=0; i<unit.length; i++){
+                            unit[i].y--;
+                        }
+                        mainThis.drawUnit();
+                        break;
+                    case SPACE:
+                        if(isStop){
+                            mainThis.move();
+                            isStop = false;
+                        }else{
+                            clearInterval(clearFlg);
+                            isStop = true;
+                        }
+                        break;
+                    default:
+                        console.log(e.keyCode);
+                        break;
+                }
+            }
+        },
+        hasClass  : function(ele,cls){
+            return ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
+        },
+        move      : function(){
+            var mainThis = this;
+            clearFlg = setInterval(function(){
+                for(var i=0; i<unit.length; i++){
+                    if(unit[i].x == (h-1) || mainThis.isExit(unit[i].x+1,unit[i].y)){
+                        isBottom = true;
+                    }
+                }
+                if(isBottom){
+                    for(var i=0; i<unit.length; i++){
+                        exitList[unit[i].x][unit[i].y]=1;
+                    }
+                    var lines = mainThis.isScore();
+                    if(!!lines.length){
+                        mainThis.delLines(lines);
+                        mainThis.score(lines.length);
+                    }
+                    clearInterval(clearFlg);
+                    mainThis.getUnit();
+                    mainThis.move();
+                    isBottom = false;
+                }else{
+                    for(var i=0; i<unit.length; i++){
+                        document.getElementById("box-"+unit[i].x+"-"+unit[i].y).className = "";
+                        unit[i].x++;
+                    }
+                    for(var i=0; i<unit.length; i++){
+                        document.getElementById("box-"+unit[i].x+"-"+unit[i].y).className = "on";
+                    }
+                }
+            },speed);
+        },
+        init      : function(){
+            this.initPage();
+            this.getUnit();
+            this.control();
+        }
+    };
+    var mainObj    = new mObj();
+    mainObj.init();
+</script>
+</html>
