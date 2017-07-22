@@ -18,7 +18,9 @@
     </style>
 </head>
 <body ng-app="app" ng-controller="appController" ng-keydown="keyEvent($event);">
-    <label>第{{data.grade}}关</label>&nbsp;&nbsp;<label>当前步数：{{data.stepCount}}</label>
+    <label>第{{data.grade}}关</label>&nbsp;&nbsp;
+    <label>当前步数：{{data.stepCount}}</label>
+    <button ng-click='reset()'>复位</button>
     <table border="0" cellspacing="0" cellpadding="0">
         <tr ng-repeat='tr in data.gradeTable' ng-init="outerIndex = $index">
             <td ng-repeat='td in tr track by $index'

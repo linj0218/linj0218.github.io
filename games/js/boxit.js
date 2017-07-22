@@ -1,12 +1,14 @@
 var app = angular.module('app', []);
 app.controller('appController', ['$scope', '$timeout', ($scope, $timeout) => {
+    // let sources = grades;
+    let sources = JSON.parse(JSON.stringify(grades));
 	$scope.data = {
         grade: 1,
-        xMax: grades.grade1.defaultTable.length,
-        yMax: grades.grade1.defaultTable[0].length,
+        xMax: sources.grade1.defaultTable.length,
+        yMax: sources.grade1.defaultTable[0].length,
         // 0: empty, 1: wall, 2: empty backgroud, 3: target, 4: empty box, 5: reach
-        gradeTable: grades.grade1.defaultTable,
-        protagonist: grades.grade1.protagonist,
+        gradeTable: sources.grade1.defaultTable,
+        protagonist: sources.grade1.protagonist,
         nowCount: 0,
         stepCount: 0,
 	}
@@ -209,8 +211,8 @@ app.controller('appController', ['$scope', '$timeout', ($scope, $timeout) => {
         var tempGradeName = "grade" + $scope.data.grade;
         $scope.data.nowCount = document.querySelectorAll(".reach").length;
 
-        if($scope.data.nowCount == grades[tempGradeName].passCount) {
-            if($scope.data.grade == Object.getOwnPropertyNames(grades).length) {
+        if($scope.data.nowCount == sources[tempGradeName].passCount) {
+            if($scope.data.grade == Object.getOwnPropertyNames(sources).length) {
                 alert("恭喜你通关了!")
                 return;
             }
@@ -218,13 +220,27 @@ app.controller('appController', ['$scope', '$timeout', ($scope, $timeout) => {
             tempGradeName = "grade" + $scope.data.grade;
             $scope.data = {
                 grade: $scope.data.grade,
-                xMax: grades[tempGradeName].defaultTable.length,
-                yMax: grades[tempGradeName].defaultTable[0].length,
-                gradeTable: grades[tempGradeName].defaultTable,
-                protagonist: grades[tempGradeName].protagonist,
+                xMax: sources[tempGradeName].defaultTable.length,
+                yMax: sources[tempGradeName].defaultTable[0].length,
+                gradeTable: sources[tempGradeName].defaultTable,
+                protagonist: sources[tempGradeName].protagonist,
                 nowCount: 0,
                 stepCount: $scope.data.stepCount,
             }
+        }
+    }
+
+    $scope.reset = () => {
+        var tempGradeName = "grade" + $scope.data.grade;
+        let sources = JSON.parse(JSON.stringify(grades));
+        $scope.data = {
+            grade: $scope.data.grade,
+            xMax: sources[tempGradeName].defaultTable.length,
+            yMax: sources[tempGradeName].defaultTable[0].length,
+            gradeTable: sources[tempGradeName].defaultTable,
+            protagonist: sources[tempGradeName].protagonist,
+            nowCount: 0,
+            stepCount: $scope.data.stepCount,
         }
     }
 }]);
