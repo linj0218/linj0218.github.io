@@ -1,4 +1,7 @@
-# 简历
+<!-- # 简历 -->
+
+# 首页
+<p><a href="https://linj0218.github.io" target="_blank">首页</a></p>
 
 # 小例子
 <p>1.<a href="https://linj0218.github.io/examples/danmu.html" target="_blank">canvas弹幕小例子</a></p>
