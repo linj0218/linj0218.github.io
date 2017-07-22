@@ -146,7 +146,7 @@
                 document.getElementById("demo-name").value = men[wn];
             },
             getWeather: function(){
-                url = "http://wthrcdn.etouch.cn"; // 重设url
+                url = "https://wthrcdn.etouch.cn"; // 重设url
                 jsonGetAjax("/weather_mini", {"city":"上海"}, function(res){
                     console.log(res)
                     var todayHtml = "",
