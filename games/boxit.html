@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>Boxit</title>
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <script type="text/javascript" src='./js/gradeFile.js'></script>
+    <script type="text/javascript" src='./js/boxit.js'></script>
+    <style type="text/css">
+        td{width: 20px;height: 20px;background: url("./img/emptyBg.png") no-repeat 0 0 / 100% 100%;}
+        .empty{background: rgb(222, 214, 173);}
+        .wall{background: url("./img/wall.png") no-repeat 0 0 / 100% 100%;}
+        .emptyBg{background: url("./img/emptyBg.png") no-repeat 0 0 / 100% 100%;}
+        .target:after{content: '';display: block;width:100%;height: 100%;background: url("./img/target.png") no-repeat 50% 50% / 30% 30%;}
+        .emptyBox{background: url("./img/emptyBox.png") no-repeat 0 0 / 100% 100%;}
+        .reach{background: url("./img/reach.png") no-repeat 0 0 / 100% 100%;}
+        .pro:after{content: '';display: block;width:100%;height: 100%;background: url("./img/self.png") no-repeat 0 0 / 100% 100%;}
+    </style>
+</head>
+<body ng-app="app" ng-controller="appController" ng-keydown="keyEvent($event);">
+    <label>第{{data.grade}}关</label>&nbsp;&nbsp;<label>当前步数：{{data.stepCount}}</label>
+    <table border="0" cellspacing="0" cellpadding="0">
+        <tr ng-repeat='tr in data.gradeTable' ng-init="outerIndex = $index">
+            <td ng-repeat='td in tr track by $index'
+                ng-class="{'empty': td==0, 'wall': td==1, 'emptyBg': td==2, 'target': td==3, 'emptyBox': td==4, 'reach': td==5,
+                           'pro': outerIndex==data.protagonist.y&&$index==data.protagonist.x}">
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -5,6 +5,8 @@ https://linj0218.github.io/pages/pwshtml/danmu.html
 # 水球
 https://linj0218.github.io/pages/html/shuiqiu.html
 # 纯js贪吃蛇
-https://linj0218.github.io/pages/html/snake.html
+https://linj0218.github.io/games/snake.html
 # 纯js俄罗斯方块
-https://linj0218.github.io/pages/html/tetris.html
+https://linj0218.github.io/games/tetris.html
+# AngularJs重写推箱子
+https://linj0218.github.io/games/boxit.html
