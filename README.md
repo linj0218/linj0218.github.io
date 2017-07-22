@@ -1,12 +1,12 @@
 # 简历
 
-# 简单的弹幕
+# canvas弹幕小例子
 https://linj0218.github.io/pages/pwshtml/danmu.html
-# 水球
+# canvas球星进度条
 https://linj0218.github.io/pages/html/shuiqiu.html
-# 纯js贪吃蛇
+# 原生js贪吃蛇
 https://linj0218.github.io/games/snake.html
-# 纯js俄罗斯方块
+# 原生js俄罗斯方块
 https://linj0218.github.io/games/tetris.html
 # AngularJs重写推箱子
 https://linj0218.github.io/games/boxit.html
